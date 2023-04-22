@@ -51,6 +51,26 @@ xhr.onreadystatechange = function() {
       checkbox.setAttribute('data-nivel', nivel.nivel);
       checkbox.setAttribute('data-indicador', indicador.indicador);
       checkbox.setAttribute('data-indicador-titulo', indicador.titulo);
+      // checkbox.setAttribute('name', `indicador-${indicador.indicador}`);
+      checkbox.setAttribute('name', `indicador-${indicador.indicador}-comp-${competencia.competencia}`);
+      checkbox.setAttribute('id', `indicador-${indicador.indicador}-comp-${competencia.competencia}`);
+
+
+      // WIP
+      // // Escuchar el evento change en todos los checkboxes
+      //   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      //   checkboxes.forEach(checkbox => {
+      //     checkbox.addEventListener('change', () => {
+      //       // Desmarcar todos los checkboxes con el mismo número de indicador, la misma competencia y distinto nivel excepto el que ha cambiado
+      //       const indicador = checkbox.getAttribute('data-indicador');
+      //       const competencia = checkbox.getAttribute('data-competencia');
+      //       const checkboxesToUncheck = document.querySelectorAll(`input[name="indicador-${indicador}-comp-${competencia}"]:not(#${checkbox.id})`);
+      //       checkboxesToUncheck.forEach(checkboxToUncheck => {
+      //         checkboxToUncheck.checked = false;
+      //       });
+      //     });
+      //   });
+
 
 
      // Asignar el evento click al checkbox y al texto del indicador
@@ -238,6 +258,7 @@ function generarTexto() {
 
   const modalBody = document.querySelector('.modal-body');
   modalBody.innerHTML = texto;
+  // modalBody.innerHTML = texto + modalBody.innerHTML ;
 
 }
 
