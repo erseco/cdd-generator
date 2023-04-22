@@ -1,0 +1,197 @@
+# Adaptación en formato YAML del Marco de Referencia de la Competencia Digital Docente
+# publicado en la "Resolución de 4 de mayo de 2022, de la Dirección General de Evaluación y
+# Cooperación Territorial, por la que se publica el Acuerdo de la Conferencia Sectorial de Educación,
+# sobre la actualización del marco de referencia de la competencia digital docente."
+# Fuente original: https://www.boe.es/diario_boe/txt.php?id=BOE-A-2022-8042
+# Esta adaptación está diseñada para facilitar el uso con herramientas automatizadas.
+#
+# Autor: Ernesto Serrano
+# Licencia: Creative Commons Attribution 4.0 International (CC BY 4.0)
+# Año: 2023
+#
+# Estructura del Área en el Marco de Referencia de la Competencia Digital Docente:
+# marco_referencia_competencia_digital_docente:
+#   - area: (número del área)
+#     titulo: (título del área)
+#     competencias:
+#       - competencia: (número de la competencia)
+#         titulo: (título de la competencia)
+#         etapas:
+#           - etapa: (letra de la etapa)
+#             titulo: (título de la etapa)
+#             niveles:
+#               - nivel: (código del nivel)
+#                 titulo: (título del nivel)
+#                 indicadores_logro:
+#                   - indicador: (código del indicador)
+#                     titulo: (título del indicador)
+#                 afirmaciones_desempeño: (afirmación sobre el desempeño)
+#                 ejemplos:
+#                   - (ejemplo)
+
+---
+
+marco_referencia_competencia_digital_docente:
+  - area: 1
+    titulo: Compromiso profesional
+    competencias:
+    - competencia: 1.1
+      titulo: Comunicación organizativa
+      etapas:
+        - etapa: A
+          titulo: Conocimiento y aplicación en entornos controlados de las tecnologías digitales propuestas por las Administraciones Educativas (AAEE) o los titulares del centro para mejorar la comunicación y la proyección de la imagen institucional de la organización
+          niveles:
+            - nivel: A1
+              titulo: Conocimiento general de las tecnologías de comunicación más utilizadas en los contextos educativos y comprensión de su finalidad
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Se comunica empleando las normas básicas de la etiqueta digital mediante tecnologías digitales: correo electrónico, foros, chat, sistemas de videoconferencia, etc."
+                - indicador: 2
+                  titulo: Utiliza cada una de las herramientas de forma correcta adaptándolas al contexto comunicativo
+                - indicador: 3
+                  titulo: Conoce las características, funcionalidades, opciones de accesibilidad y limitaciones de las herramientas de comunicación, así como la normativa aplicada a su uso en el ámbito educativo
+              afirmaciones_desempeño: Utilizo tecnologías digitales para la comunicación en función del contexto
+              ejemplos:
+                - Empleo las funcionalidades de los sistemas de videoconferencias en las actividades de comunicación síncronas con otras personas.
+                - Utilizo las normas básicas de etiqueta en la comunicación digital (uso de mayúsculas, emoticonos, etc.).
+                - Selecciono herramientas síncronas o asíncronas en función de la finalidad comunicativa y de la disponibilidad horaria de mis interlocutores.
+            - nivel: A2
+              titulo: Integración de las tecnologías de comunicación en las actividades educativas
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Selecciona las herramientas de comunicación digital adecuadas para cada situación y audiencia en el contexto educativo"
+                - indicador: 2
+                  titulo: "Promueve el uso responsable y ético de las tecnologías de comunicación en el ámbito educativo"
+                - indicador: 3
+                  titulo: "Evalúa la efectividad de las herramientas de comunicación digital y propone mejoras para optimizar su uso en el entorno educativo"
+              afirmaciones_desempeño: Integro y promuevo el uso de tecnologías digitales en la comunicación educativa de manera efectiva y responsable
+        - etapa: B
+          titulo: Dominio y aplicación de las tecnologías digitales en entornos profesionales y educativos
+          niveles:
+            - nivel: B1
+              titulo: Aplicación de las tecnologías digitales en la práctica educativa y organizativa
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Implementa las tecnologías digitales de comunicación en la práctica educativa y organizativa de manera efectiva"
+                - indicador: 2
+                  titulo: "Analiza y adapta su enfoque de comunicación a las necesidades y características de los diferentes destinatarios y contextos educativos"
+                - indicador: 3
+                  titulo: "Fomenta el uso de herramientas de comunicación digital para mejorar la colaboración y la construcción del conocimiento en el ámbito educativo"
+              afirmaciones_desempeño: Aplico las tecnologías digitales en la práctica educativa y organizativa de manera efectiva y adaptada a diferentes contextos y necesidades
+            - nivel: B2
+              titulo: Innovación y mejora continua en el uso de tecnologías digitales de comunicación
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Explora y evalúa nuevas tecnologías de comunicación y sus posibles aplicaciones en el ámbito educativo"
+                - indicador: 2
+                  titulo: "Propone y lidera proyectos para mejorar la comunicación y la colaboración a través de tecnologías digitales en el entorno educativo"
+                - indicador: 3
+                  titulo: "Contribuye a la formación y apoyo de otros profesionales en el uso de tecnologías digitales de comunicación en la educación"
+              afirmaciones_desempeño: Lidero la innovación y la mejora continua en el uso de tecnologías digitales de comunicación en el ámbito educativo
+
+        - etapa: C
+          titulo: Liderazgo en la integración y promoción de las tecnologías digitales en la organización educativa
+          niveles:
+            - nivel: C1
+              titulo: Promoción de la adopción de tecnologías digitales en la comunicación y gestión educativa
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Identifica oportunidades para mejorar la comunicación y la gestión educativa a través de la adopción de tecnologías digitales"
+                - indicador: 2
+                  titulo: "Desarrolla e implementa estrategias y políticas que fomenten el uso efectivo de tecnologías digitales en la comunicación y gestión educativa"
+                - indicador: 3
+                  titulo: "Evalúa el impacto de las tecnologías digitales en la comunicación y gestión educativa y propone mejoras basadas en los resultados"
+              afirmaciones_desempeño: Lidero y promuevo la adopción de tecnologías digitales para mejorar la comunicación y gestión educativa
+            - nivel: C2
+              titulo: Formación y mentoría en el uso de tecnologías digitales de comunicación
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Diseña y ofrece programas de formación en el uso de tecnologías digitales de comunicación para el personal educativo"
+                - indicador: 2
+                  titulo: "Brinda mentoría y apoyo a otros profesionales en el uso efectivo y ético de tecnologías digitales de comunicación en la educación"
+                - indicador: 3
+                  titulo: "Contribuye al desarrollo de comunidades de práctica y redes profesionales centradas en el uso de tecnologías digitales de comunicación en el ámbito educativo"
+              afirmaciones_desempeño: Desarrollo y ofrezco programas de formación y mentoría en el uso de tecnologías digitales de comunicación en el ámbito educativo
+
+
+  - area: 2
+    titulo: Contenidos digitales
+    competencias:
+    - competencia: 2.1
+      titulo: Búsqueda y selección de contenidos digitales
+      etapas:
+        - etapa: A
+          titulo: Conocimiento y aplicación tutelada de criterios de calidad para seleccionar contenidos digitales adecuados y seguros y uso de estrategias de búsqueda y organización eficiente
+          niveles:
+            - nivel: A1
+              titulo: Conocimiento teórico de los criterios para la selección de contenidos digitales y aplicación práctica de estrategias de búsqueda y organización
+              indicadores_logro:
+                - indicador: 1
+                  titulo: Conoce los criterios didácticos, técnicos (licencias, accesibilidad, adecuación a la edad del alumnado y a la consecución de los objetivos) y científicos (fiabilidad de las fuentes, rigor, etc.) para la selección de contenidos de calidad
+                - indicador: 2
+                  titulo: Utiliza cada una de las herramientas de forma correcta adaptándolas al contexto comunicativo
+                - indicador: 3
+                  titulo: Conoce las características, funcionalidades, opciones de accesibilidad y limitaciones de las herramientas de comunicación, así como la normativa aplicada a su uso en el ámbito educativo
+              afirmaciones_desempeño: Utilizo tecnologías digitales para la comunicación en función del contexto
+              ejemplos:
+                - Empleo las funcionalidades de los sistemas de videoconferencias en las actividades de comunicación síncronas con otras personas.
+                - Utilizo las normas básicas de etiqueta en la comunicación digital (uso de mayúsculas, emoticonos, etc.).
+                - Selecciono herramientas síncronas o asíncronas en función de la finalidad comunicativa y de la disponibilidad horaria de mis interlocutores.
+            - nivel: A2
+              titulo: Integración de las tecnologías de comunicación en las actividades educativas
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Selecciona las herramientas de comunicación digital adecuadas para cada situación y audiencia en el contexto educativo"
+                - indicador: 2
+                  titulo: "Promueve el uso responsable y ético de las tecnologías de comunicación en el ámbito educativo"
+                - indicador: 3
+                  titulo: "Evalúa la efectividad de las herramientas de comunicación digital y propone mejoras para optimizar su uso en el entorno educativo"
+              afirmaciones_desempeño: Integro y promuevo el uso de tecnologías digitales en la comunicación educativa de manera efectiva y responsable
+        - etapa: B
+          titulo: Dominio y aplicación de las tecnologías digitales en entornos profesionales y educativos
+          niveles:
+            - nivel: B1
+              titulo: Aplicación de las tecnologías digitales en la práctica educativa y organizativa
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Implementa las tecnologías digitales de comunicación en la práctica educativa y organizativa de manera efectiva"
+                - indicador: 2
+                  titulo: "Analiza y adapta su enfoque de comunicación a las necesidades y características de los diferentes destinatarios y contextos educativos"
+                - indicador: 3
+                  titulo: "Fomenta el uso de herramientas de comunicación digital para mejorar la colaboración y la construcción del conocimiento en el ámbito educativo"
+              afirmaciones_desempeño: Aplico las tecnologías digitales en la práctica educativa y organizativa de manera efectiva y adaptada a diferentes contextos y necesidades
+            - nivel: B2
+              titulo: Innovación y mejora continua en el uso de tecnologías digitales de comunicación
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Explora y evalúa nuevas tecnologías de comunicación y sus posibles aplicaciones en el ámbito educativo"
+                - indicador: 2
+                  titulo: "Propone y lidera proyectos para mejorar la comunicación y la colaboración a través de tecnologías digitales en el entorno educativo"
+                - indicador: 3
+                  titulo: "Contribuye a la formación y apoyo de otros profesionales en el uso de tecnologías digitales de comunicación en la educación"
+              afirmaciones_desempeño: Lidero la innovación y la mejora continua en el uso de tecnologías digitales de comunicación en el ámbito educativo
+
+        - etapa: C
+          titulo: Liderazgo en la integración y promoción de las tecnologías digitales en la organización educativa
+          niveles:
+            - nivel: C1
+              titulo: Promoción de la adopción de tecnologías digitales en la comunicación y gestión educativa
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Identifica oportunidades para mejorar la comunicación y la gestión educativa a través de la adopción de tecnologías digitales"
+                - indicador: 2
+                  titulo: "Desarrolla e implementa estrategias y políticas que fomenten el uso efectivo de tecnologías digitales en la comunicación y gestión educativa"
+                - indicador: 3
+                  titulo: "Evalúa el impacto de las tecnologías digitales en la comunicación y gestión educativa y propone mejoras basadas en los resultados"
+              afirmaciones_desempeño: Lidero y promuevo la adopción de tecnologías digitales para mejorar la comunicación y gestión educativa
+            - nivel: C2
+              titulo: Formación y mentoría en el uso de tecnologías digitales de comunicación
+              indicadores_logro:
+                - indicador: 1
+                  titulo: "Diseña y ofrece programas de formación en el uso de tecnologías digitales de comunicación para el personal educativo"
+                - indicador: 2
+                  titulo: "Brinda mentoría y apoyo a otros profesionales en el uso efectivo y ético de tecnologías digitales de comunicación en la educación"
+                - indicador: 3
+                  titulo: "Contribuye al desarrollo de comunidades de práctica y redes profesionales centradas en el uso de tecnologías digitales de comunicación en el ámbito educativo"
+              afirmaciones_desempeño: Desarrollo y ofrezco programas de formación y mentoría en el uso de tecnologías digitales de comunicación en el ámbito educativo
+
