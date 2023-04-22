@@ -36,7 +36,7 @@ xhr.onreadystatechange = function() {
       const label = document.createElement('label');
       label.classList.add('form-check-label');
       label.innerHTML = `<strong>${indicador.indicador}.</strong> ${indicador.titulo}`;
-      label.addEventListener('click', toggleCheckbox);
+      // label.addEventListener('click', toggleCheckbox);
 
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
@@ -53,8 +53,17 @@ xhr.onreadystatechange = function() {
       checkbox.setAttribute('data-indicador-titulo', indicador.titulo);
 
 
+     // Asignar el evento click al checkbox y al texto del indicador
+      label.addEventListener('click', () => {
+        checkbox.checked = !checkbox.checked;
+      });
+      checkbox.addEventListener('click', (event) => {
+        event.stopPropagation(); // Evitar que el evento se propague al elemento padre
+      });
+
       label.prepend(checkbox);
       indicadorCell.append(label);
+      indicadorCell.addEventListener('click', toggleCheckbox);
 				
 				desempenoCell.textContent = nivel.afirmaciones_desempeño;
 
@@ -232,10 +241,14 @@ function generarTexto() {
 
 }
 
-// Marcar/desmarcar el checkbox al hacer clic en el texto del indicador
+// Marcar/desmarcar el checkbox al hacer clic en el texto del indicador o el checkbox
 function toggleCheckbox(event) {
-  const checkbox = event.target.closest('label').querySelector('input[type="checkbox"]');
-  checkbox.checked = !checkbox.checked;
+  const td = event.target.closest('td');
+  const checkbox = td.querySelector('input[type="checkbox"]');
+  const isTextClicked = event.target.matches('label.form-check-label') || event.target.matches('label.form-check-label *');
+  if (isTextClicked) {
+    checkbox.checked = !checkbox.checked;
+  }
 }
 
 new ClipboardJS('.btn-primary');
