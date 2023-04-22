@@ -31,6 +31,12 @@ xhr.onreadystatechange = function() {
       				etapaCell.innerHTML = `<strong>${etapa.etapa}.</strong> ${etapa.titulo}`;
       				nivelCell.innerHTML = `<strong>${nivel.nivel}.</strong> ${nivel.titulo}`;
 
+              // Mostramos un tooltip por si no es visible el texto de la celda
+              areaCell.title = areaCell.innerText;
+              competenciaCell.title = competenciaCell.innerText;
+              etapaCell.title = etapaCell.innerText;
+              nivelCell.title = nivelCell.innerText;
+
 			
 
       const label = document.createElement('label');
