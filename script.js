@@ -26,35 +26,21 @@ xhr.onreadystatechange = function() {
               // Agregamos el color de fondo a la fila dependiendo del área
               row.classList.add(`area${area.area}`);
 
-      				areaCell.textContent = `${area.area}. ${area.titulo}`;
-      				competenciaCell.textContent = `${competencia.competencia}. ${competencia.titulo}`;
-      				etapaCell.textContent = `${etapa.etapa}. ${etapa.titulo}`;
-      				nivelCell.textContent = `${nivel.nivel}. ${nivel.titulo}`;
+      				areaCell.innerHTML = `<strong>${area.area}.</strong> ${area.titulo}`;
+      				competenciaCell.innerHTML = `<strong>${competencia.competencia}.</strong> ${competencia.titulo}`;
+      				etapaCell.innerHTML = `<strong>${etapa.etapa}.</strong> ${etapa.titulo}`;
+      				nivelCell.innerHTML = `<strong>${nivel.nivel}.</strong> ${nivel.titulo}`;
 
-				
-				// checkboxCell.innerHTML = '<input type="checkbox">';
-		        // indicadorCell.textContent = `${nivel.indicadores_logro[0].indicador} - ${nivel.indicadores_logro[0].titulo}`;
-
-
-    // const etapa = checkbox.getAttribute('data-etapa');
-    // const nivel = checkbox.getAttribute('data-nivel');
-    // const indicador = checkbox.getAttribute('data-indicador');
-
-      
-      // indicadorCell.classList.add('text-center');
+			
 
       const label = document.createElement('label');
       label.classList.add('form-check-label');
-      label.innerHTML = `${indicador.indicador}. ${indicador.titulo}`;
+      label.innerHTML = `<strong>${indicador.indicador}.</strong> ${indicador.titulo}`;
       label.addEventListener('click', toggleCheckbox);
 
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.classList.add('form-check-input');
-      // checkbox.setAttribute('data-indicador', indicador.indicador);
-      // checkbox.setAttribute('data-nivel', nivel.nivel);
-      // checkbox.setAttribute('data-etapa', etapa.etapa);
-
 
       checkbox.setAttribute('data-area', area.area);
       checkbox.setAttribute('data-area-titulo', area.titulo);
@@ -69,20 +55,6 @@ xhr.onreadystatechange = function() {
 
       label.prepend(checkbox);
       indicadorCell.append(label);
-
-
-				// indicadorCell.innerHTML = `<input 
-        //                                 type="checkbox" 
-        //                                 class="form-check-input" 
-        //                                 data-area="${area.area}" 
-        //                                 data-area-titulo="${area.titulo}" 
-        //                                 data-competencia="${competencia.competencia}" 
-        //                                 data-competencia-titulo="${competencia.titulo}" 
-        //                                 data-etapa="${etapa.etapa}" 
-        //                                 data-etapa-titulo="${etapa.titulo}" 
-        //                                 data-nivel="${nivel.nivel}" 
-        //                                 data-indicador="${indicador.indicador}"
-        //                             >${indicador.indicador}. ${indicador.titulo}`;
 				
 				desempenoCell.textContent = nivel.afirmaciones_desempeño;
 
@@ -124,66 +96,12 @@ xhr.onreadystatechange = function() {
 	        lastNivelCell = nivelCell;
       	  }
 
-              // if (competencia.competencia === area.competencias[0].competencia) {
-              //   areaCell.rowSpan = area.competencias.length;
-              // }
-
-              // if (etapa.etapa === competencia.etapas[0].etapa) {
-              //   competenciaCell.rowSpan = competencia.etapas.length;
-              // }
-
-              // if (nivel.nivel === etapa.niveles[0].nivel) {
-              //   etapaCell.rowSpan = etapa.niveles.length;
-              // }
-
-			// if (lastArea === area.titulo) {
-			// 	  areaCell.rowSpan++;
-			// 	  areaCell.style.verticalAlign = "middle";
-			// 	  competenciaCell.style.display = "none";
-			// 	  etapaCell.style.display = "none";
-			// 	  nivelCell.style.display = "none";
-			// 	} else {
-			// 	  lastArea = area.titulo;
-			// 	}
-
-			// 	if (lastCompetencia === competencia.titulo) {
-			// 	  competenciaCell.rowSpan++;
-			// 	  competenciaCell.style.verticalAlign = "middle";
-			// 	  etapaCell.style.display = "none";
-			// 	  nivelCell.style.display = "none";
-			// 	} else {
-			// 	  lastCompetencia = competencia.titulo;
-			// 	}
-
-			// 	if (lastEtapa === etapa.titulo) {
-			// 	  etapaCell.rowSpan++;
-			// 	  etapaCell.style.verticalAlign = "middle";
-			// 	  nivelCell.style.display = "none";
-			// 	} else {
-			// 	  lastEtapa = etapa.titulo;
-			// 	}
-
-			// 	if (lastNivel === nivel.titulo) {
-			// 	  nivelCell.rowSpan++;
-			// 	  nivelCell.style.verticalAlign = "middle";
-			// 	} else {
-			// 	  lastNivel = nivel.titulo;
-			// 	}
-
-
-
-              // row.appendChild(areaCell);
-              // row.appendChild(competenciaCell);
-              // row.appendChild(etapaCell);
-              // row.appendChild(nivelCell);
-              row.appendChild(indicadorCell);
-              // row.appendChild(desempenoCell);
-
+            row.appendChild(indicadorCell);
 
 	          if (lastDesempenoCell && lastDesempenoCell.textContent === desempenoCell.textContent) {
 	            lastDesempenoCell.rowSpan++;
 		        desempenoCell.style.display = "none";
-		      } else {
+		        } else {
 		        row.appendChild(desempenoCell);
 		        lastDesempenoCell = desempenoCell;
 	      	  }
@@ -220,19 +138,8 @@ generarBtn.addEventListener('click', () => {
 });
 
 
-// // Mostrar el botón GENERAR cuando se hace scroll
-// const generarBtn = document.querySelector('.btn-generar');
-// window.addEventListener('scroll', () => {
-//   if (window.scrollY > 500) {
-//     generarBtn.classList.add('d-inline');
-//   } else {
-//     generarBtn.classList.remove('d-inline');
-//   }
-// });
-
-
 $(function(){
-$("table").resizableColumns();
+  $("table").resizableColumns();
 });
 
 // Obtener los checkboxes marcados y generar el texto para el modal
@@ -280,7 +187,6 @@ function generarTexto() {
     });
   });
   console.log(selectedData);
-  // alert(selectedData);
 
   // Utilizar el objeto creado para generar el texto deseado
   let texto = '';
@@ -335,8 +241,3 @@ function toggleCheckbox(event) {
 new ClipboardJS('.btn-primary');
 
 
-// new ClipboardJS('.btn-primary'),{
-//     text: function() {
-//         var htmlBlock = document.querySelector('.yourSelector');
-//         return htmlBlock.innerHTML;
-//     }}
