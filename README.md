@@ -2,6 +2,9 @@
 
 CDD-Generator es una herramienta web para generar los indicadores de la competencia digital docente. Puedes acceder al generador de indicadores en el sitio web cdd-generator.ernesto.es.
 
+![Captura de pantalla](screenshot.png)
+
+
 ## Cómo utilizarlo
 1. Abre la página web en tu navegador.
 2. Selecciona las casillas correspondientes a las competencias e indicadores deseados.
