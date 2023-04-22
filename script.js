@@ -322,7 +322,7 @@ function generarTexto() {
   }
 
   const modalBody = document.querySelector('.modal-body');
-  modalBody.innerHTML = texto + modalBody.innerHTML;
+  modalBody.innerHTML = texto;
 
 }
 
