@@ -169,7 +169,7 @@ const modal = document.querySelector('.modal');
 const generarBtn = document.querySelector('.btn-generar');
 generarBtn.addEventListener('click', () => {
 	generarTexto();
-  modal.showModal();
+  // modal.showModal();
 });
 
 
@@ -239,19 +239,21 @@ function generarTexto() {
         texto +=`<span style="font-weight:bold;">${nivel[0].nivel} de la competencia ${nivel[0].competencia}.</span> ${competencia} porque contribuye a trabajar `;
 
         if (nivel.length == 1) {
-           texto +=`<span style="font-weight:bold;"> con el indicador ${nivel[0].indicador}.</span> ${nivel[0].indicadorData}`;
+           texto +=`<span style="font-weight:bold;"> con el indicador ${nivel[0].indicador}.</span> ${nivel[0].indicadorData}.`;
         } else {
           texto +=`<span style="font-weight:bold;"> con los indicadores </span>`;
           var i=0;
           for (const indicador of nivel) {
             const separador = "";
+            var ending = "";
             if (i == nivel.length-1){
               texto +=` y `;
+              ending = ".";
             } else if (i > 0) { 
               texto +=`; `;
             }
 
-            texto +=`<span style="font-weight:bold;">${indicador.indicador}.</span> ${indicador.indicadorData}`;
+            texto +=`<span style="font-weight:bold;">${indicador.indicador}.</span> ${indicador.indicadorData}${ending}`;
             i+=1;
 
           }
