@@ -1,4 +1,4 @@
-/* Colores del Marco */
+/* Colores originales del Marco */
 /*.area1 {
   background-color: #ee7942;
 }
@@ -18,8 +18,8 @@
   background-color: #c93d61;
 }*/
 
-
-.area1 {
+/* mas suaves  */
+/*.area1 {
   background-color: #f0a57d;
 }
 .area2 {
@@ -37,6 +37,27 @@
 .area6 {
   background-color: #da677e;
 }
+*/
+
+.area1 {
+  background-color: #f9d2bf;
+}
+.area2 {
+  background-color: #9dd3b3;
+}
+.area3 {
+  background-color: #9fb9e7;
+}
+.area4 {
+  background-color: #7adad0;
+}
+.area5 {
+  background-color: #c8a6c2;
+}
+.area6 {
+  background-color: #eda8b6;
+}
+
 
 html {
   font-size: 0.7rem;
@@ -56,8 +77,8 @@ thead {
   position: sticky;
   top: 0;
   background-color: #fff;
-  top: 0;
 /*  background: red;*/
+  z-index: 2;
 }
 
 th {
