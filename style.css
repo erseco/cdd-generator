@@ -58,6 +58,10 @@
   background-color: #eda8b6;
 }
 
+.hidden {
+  display: none;
+}
+
 
 html {
   font-size: 0.7rem;
@@ -108,6 +112,10 @@ td {
   border-bottom-width: 2px;
 }
 */
+
+#resumen td {
+  padding: 0.5rem;
+}
 
 .btn-generar {
   z-index: 1;
