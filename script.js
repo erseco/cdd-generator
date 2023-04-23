@@ -172,11 +172,6 @@ generarBtn.addEventListener('click', () => {
   // modal.showModal();
 });
 
-
-$(function(){
-  $("table").resizableColumns();
-});
-
 // Obtener los checkboxes marcados y generar el texto para el modal
 function generarTexto() {
 
@@ -283,3 +278,7 @@ function toggleCheckbox(event) {
 new ClipboardJS('.btn-primary');
 
 
+
+$(function(){
+  $("table").resizableColumns();
+});
