@@ -155,6 +155,9 @@ xhr.open("GET", "mrcdd.yml");
 xhr.send();
 
 
+$(function(){
+  $("table").resizableColumns();
+});
 
 // Habilitar los checkboxes
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -279,6 +282,3 @@ new ClipboardJS('.btn-primary');
 
 
 
-$(function(){
-  $("table").resizableColumns();
-});
