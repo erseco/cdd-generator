@@ -1,5 +1,5 @@
 /* Colores del Marco */
-.area1 {
+/*.area1 {
   background-color: #ee7942;
 }
 .area2 {
@@ -16,6 +16,26 @@
 }
 .area6 {
   background-color: #c93d61;
+}*/
+
+
+.area1 {
+  background-color: #f0a57d;
+}
+.area2 {
+  background-color: #63b77a;
+}
+.area3 {
+  background-color: #5c95ca;
+}
+.area4 {
+  background-color: #35b9b2;
+}
+.area5 {
+  background-color: #8f6da5;
+}
+.area6 {
+  background-color: #da677e;
 }
 
 html {
