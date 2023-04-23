@@ -221,6 +221,9 @@ function generarTexto() {
   });
   console.log(selectedData);
 
+  // Limpiamos las filas de la tabla resumen (la vamos a ir rellenando ahora)
+  $("td.cell-r0").text("");
+
   // Utilizar el objeto creado para generar el texto deseado
   let texto = '';
   for (const area in selectedData) {
@@ -235,6 +238,9 @@ function generarTexto() {
         // siempre va haber al menos un nivel seleccionado
         texto += `<li>`;
         texto +=`<span style="font-weight:bold;">${nivel[0].nivel} de la competencia ${nivel[0].competencia}.</span> ${competencia} porque contribuye a trabajar `;
+
+        // Asignamos el valor en la tabla resumen
+        $(`.a${nivel[0].area}c${nivel[0].competencia[2]}`).text(vNivel);
 
         if (nivel.length == 1) {
            texto +=`<span style="font-weight:bold;"> con el indicador ${nivel[0].indicador}.</span> ${nivel[0].indicadorData}.`;
@@ -264,7 +270,13 @@ function generarTexto() {
 
   const modalBody = document.querySelector('.modal-body');
   modalBody.innerHTML = texto;
-  // modalBody.innerHTML = texto + modalBody.innerHTML ;
+
+  // concatenamos la tabla resumen (un clon)
+  const resumenTable = $("#resumen").clone();
+  // modalBody.appendChild(resumenTable);
+  $(".modal-body").append(resumenTable);
+
+
 
 }
 
