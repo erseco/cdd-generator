@@ -22,6 +22,11 @@ xhr.onreadystatechange = function() {
               const indicadorCell = document.createElement("td");
               const desempenoCell = document.createElement("td");
 
+              etapaCell.classList.add('d-none');
+              etapaCell.classList.add('d-md-table-cell');
+              desempenoCell.classList.add('d-none');
+              desempenoCell.classList.add('d-md-table-cell');
+
 
               // Agregamos el color de fondo a la fila dependiendo del área
               row.classList.add(`area${area.area}`);
@@ -292,5 +297,13 @@ function toggleCheckbox(event) {
 
 new ClipboardJS('.btn-primary');
 
+// Muestra el modal si estamos en un movil
+document.addEventListener("DOMContentLoaded", function() {
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  if (isMobile) {
+    const mobileWarningModal = new bootstrap.Modal(document.getElementById("mobileWarningModal"));
+    mobileWarningModal.show();
+  }
+});
 
 

@@ -41,10 +41,10 @@
 	    <tr>
 	      <th style="width: 5%">Área</th>
 	      <th style="width: 5%">Competencia</th>
-	      <th style="width: 10%">Etapa</th>
+	      <th style="width: 10%" class="d-none d-md-table-cell">Etapa</th>
 	      <th style="width: 10%">Nivel</th>
 	      <th style="width: 50%">Indicador de logro</th>
-	      <th style="width: 10%">Afirmación sobre el desempeño</th>
+	      <th style="width: 10%" class="d-none d-md-table-cell">Afirmación sobre el desempeño</th>
 	    </tr>
 	  </thead>
 	  <tbody id="table-body"></tbody>
@@ -59,7 +59,7 @@
 
 <!-- Modal de Bootstrap -->
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Este curso te ayudará a alcanzar los siguientes niveles:</h5>
@@ -69,42 +69,6 @@
       </div>
       <div class="modal-body" id="generated-text">
         <p>Aquí aparecerán las áreas, competencias, niveles e indicadores de la Competencia Digital Docente.</p>
-
-<!-- 				<table style="undefined;table-layout: fixed; width: 827px">
-				<thead>
-				  <tr>
-				    <th></th>
-				    <th class="area1">Compromiso profesional<br></th>
-				    <th class="area2">Contenidos digitales</th>
-				    <th class="area3">Enseñanza y aprendizaje</th>
-				    <th class="area4">Evaluación y retroalimentación</th>
-				    <th class="area5">Empoderamiento del alumnado</th>
-				    <th class="area6">Desarrollo de la competencia digital del alumnado</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr>
-				    <td>Indicador</td>
-				    <td class="area1"></td>
-				    <td class="area2"></td>
-				    <td class="area3"></td>
-				    <td class="area4"></td>
-				    <td class="area5"></td>
-				    <td class="area6"></td>
-				  </tr>
-				  <tr>
-				    <td>Nivel</td>
-				    <td class="area1"></td>
-				    <td class="area2"></td>
-				    <td class="area3"></td>
-				    <td class="area4"></td>
-				    <td class="area5"></td>
-				    <td class="area6"></td>
-				  </tr>
-				</tbody>
-				</table> -->
-
-
       </div>
       <div class="modal-footer">
       	  <button id="copy-button" type="button" class="btn btn-primary" data-clipboard-target="#generated-text">Copiar al portapapeles</button>
@@ -116,7 +80,7 @@
 
 <!-- Tabla resumen, está oculta, para luego  -->
 <div class="hidden" id="hiddenTableContainer">
-<table id="resumen">
+<table id="resumen" class="d-none d-md-table-cell">
 <thead>
   <tr>
     <th class="area1" colspan="5">1. Compromiso Profesional</th>
@@ -181,6 +145,25 @@
 </tbody>
 </table>
 </div>
+
+<!-- Modal para moviles -->
+<div class="modal fade" id="mobileWarningModal" tabindex="-1" aria-labelledby="mobileWarningModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mobileWarningModalLabel">Advertencia</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta página se ve mejor en un ordenador.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
     <footer class="footer">
         <div class="text-center">
