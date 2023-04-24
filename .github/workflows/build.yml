@@ -31,5 +31,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           allow_empty_commit: true
           publish_dir: .
-          cname: cdd-generator.ernesto.es
+          cname: elidd.ernesto.es
           enable_jekyll: false

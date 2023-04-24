@@ -1,6 +1,6 @@
-# CDD-Generator
+# ELIDD
 
-CDD-Generator es una herramienta web para generar los indicadores de la competencia digital docente. Puedes acceder al generador de indicadores en el sitio web cdd-generator.ernesto.es.
+ELIDD (Entorno Ligero e Interactivo para Competencia Digital Docente) es una herramienta web para generar los indicadores de la competencia digital docente. Puedes acceder al generador de indicadores en el sitio web [elidd.ernesto.es](https://elidd.ernesto.es).
 
 ![Captura de pantalla](screenshot.png)
 
