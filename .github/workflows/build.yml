@@ -14,16 +14,11 @@ jobs:
       - name: GitHub Checkout
         uses: actions/checkout@v3
 
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 18
-
-      # - name: Install dependencies
-      #   run: yarn install
-
-      # - name: Build
-      #   run: yarn build
+      - name: Add js version to avoid cache
+        run: |
+          TIMESTAMP=$(date +%s)
+          JS_VERSION="?v=$TIMESTAMP"
+          sed -i "s|script.js|script.js$JS_VERSION|g" index.html
         
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
