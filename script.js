@@ -273,13 +273,13 @@ function generarTexto() {
     texto += `</ul>`
   }
 
-  const modalBody = document.querySelector('.modal-body');
+  const modalBody = document.querySelector('.resume-text');
   modalBody.innerHTML = texto;
 
   // concatenamos la tabla resumen (un clon)
   const resumenTable = $("#resumen").clone();
   // modalBody.appendChild(resumenTable);
-  $(".modal-body").append(resumenTable);
+  $(".resume-table").html(resumenTable);
 
 
 
@@ -306,4 +306,156 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
+
+$(document).ready(function() {
+    $('#download-button').click(function() {
+        html2canvas($('#resumen')[0], {
+            scale: 1.5,
+            width: $('.resume-table').width(),
+            height: $('.resume-table').height()
+        }).then(function(canvas) {
+            var link = document.createElement('a');
+            link.href = canvas.toDataURL("image/png");
+            link.download = 'tabla_resume.png';
+            link.click();
+        });
+    });
+});
+
+// // Obtener el botón y la tabla que se desea descargar como imagen
+// const btnDescargar = document.getElementById("download-button");
+// const tabla = document.getElementById("resumen");
+
+// // Asignar la función al botón como controlador de eventos
+// btnDescargar.addEventListener("click", function() {
+
+//   // Renderizar la tabla en un canvas utilizando html2canvas
+//   html2canvas(tabla).then(canvas => {
+
+//     // Convertir el canvas en un objeto Blob
+//     canvas.toBlob(blob => {
+
+//       // Crear un objeto URL a partir del blob
+//       const url = window.URL.createObjectURL(blob);
+
+//       // Crear un enlace de descarga para el archivo PNG
+//       const link = document.createElement("a");
+//       link.download = "miTabla.png";
+//       link.href = url;
+
+//       // Hacer clic en el enlace de descarga para descargar el archivo
+//       link.click();
+
+//       // Liberar el objeto URL
+//       window.URL.revokeObjectURL(url);
+//     }, "image/png");
+//   });
+// });
+
+
+
+
+
+// $(document).ready(function() {
+//   $("#searchInput").on("keyup", function() {
+//     const searchTerm = $(this).val().toLowerCase();
+//     const table = $("#mrcdd-table");
+//     const rows = table.find("tbody tr");
+
+//     rows.each(function() {
+//       const row = $(this);
+//       const rowText = row.text().toLowerCase();
+
+//       if (rowText.indexOf(searchTerm) === -1) {
+//         row.hide();
+//         const rowspanCells = row.find("td[rowspan]");
+//         rowspanCells.each(function() {
+//           const rowspanCell = $(this);
+//           const rowspanValue = parseInt(rowspanCell.attr("rowspan"));
+//           if (rowspanValue) {
+//             rowspanCell.attr("rowspan", rowspanValue - 1);
+//             const nextRow = row.next();
+//             nextRow.prepend(rowspanCell.clone());
+//             rowspanCell.remove();
+//           }
+//         });
+//       } else {
+//         row.show();
+//         const prevRow = row.prev();
+//         const prevRowHidden = prevRow.css("display") === "none";
+//         if (prevRowHidden) {
+//           const rowspanCells = prevRow.find("td[rowspan]");
+//           rowspanCells.each(function() {
+//             const rowspanCell = $(this);
+//             const rowspanValue = parseInt(rowspanCell.attr("rowspan"));
+//             if (rowspanValue) {
+//               rowspanCell.attr("rowspan", rowspanValue + 1);
+//               row.find("td[rowspan]").first().remove();
+//             }
+//           });
+//         }
+//       }
+//     });
+//   });
+// });
+
+//   function filterTable(table) {
+//     const rows = table.getElementsByTagName('tr');
+//     for (let i = 1; i < rows.length; i++) {
+//       const tds = rows[i].getElementsByTagName('td');
+//       let visibleCount = 0;
+//       for (let j = 0; j < tds.length; j++) {
+//         const text = tds[j].textContent.toLowerCase();
+//         if (j !== 4 && text.indexOf(filter) === -1) {
+//           tds[j].style.display = 'none';
+//           if (tds[j].rowSpan > 1) {
+//             adjustRowspans(tds[j], -1);
+//           }
+//         } else {
+//           tds[j].style.display = '';
+//           visibleCount++;
+//         }
+//       }
+//       if (visibleCount === 1) {
+//         rows[i].style.display = 'none';
+//       } else {
+//         rows[i].style.display = '';
+//       }
+//     }
+//   }
+
+//   function resetTable(table) {
+//     const parentNode = table.parentNode;
+//     parentNode.replaceChild(originalTable, table);
+//     table = originalTable;
+//   }
+
+// document.getElementById('filtro').addEventListener('input', function() {
+//   const filter = this.value.toLowerCase();
+//   const table = document.getElementById('mrcdd-table');
+//   const originalTable = table.cloneNode(true);
+  
+//   function adjustRowspans(td, change) {
+//     let current = td;
+//     while (current.previousElementSibling) {
+//       current = current.previousElementSibling;
+//       if (current.rowSpan > 1) {
+//         current.rowSpan += change;
+//       }
+//     }
+    
+//     current = td;
+//     while (current.nextElementSibling) {
+//       current = current.nextElementSibling;
+//       if (current.rowSpan > 1) {
+//         current.rowSpan += change;
+//       }
+//     }
+//   }
+
+
+  
+//   resetTable(table);
+//   filterTable(table);
+// });
 
