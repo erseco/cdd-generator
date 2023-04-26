@@ -13,6 +13,11 @@ xhr.onreadystatechange = function() {
       for (const competencia of area.competencias) {
         for (const etapa of competencia.etapas) {
           for (const nivel of etapa.niveles) {
+
+            // Con esto podemos filtrar por nivel (TODO)
+            // if (nivel.nivel === "B1" || nivel.nivel === "B2" || nivel.nivel === "C1" || nivel.nivel === "C2")
+            //   continue;
+
             for (const indicador of nivel.indicadores_logro) {
               const row = document.createElement("tr");
               const areaCell = document.createElement("td");
