@@ -1,12 +1,17 @@
-// Cargar el archivo YAML
-const xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function() {
-  if (this.readyState === 4 && this.status === 200) {
-    const data = jsyaml.load(this.responseText).marco_referencia_competencia_digital_docente;
-    const tableBody = document.querySelector("#table-body");
+var data;
+var tableBody;
 
-	// Inicializar los valores de las celdas anteriores
-	let lastAreaCell, lastCompetenciaCell, lastEtapaCell, lastNivelCell, lastDesempenoCell;
+function fillTable(data) {
+
+  // Limpiamos las filas (excepto la primera)
+  // for(let i = tableBody.rows.length - 1; i > 0; i--)
+  //     tableBody.deleteRow(i);
+  $('#mrcdd-table tr').not(':first').remove();
+
+
+
+  // Inicializar los valores de las celdas anteriores
+  let lastAreaCell, lastCompetenciaCell, lastEtapaCell, lastNivelCell, lastDesempenoCell;
 
     // Recorrer los datos y crear las filas de la tabla
     for (const area of data) {
@@ -14,11 +19,54 @@ xhr.onreadystatechange = function() {
         for (const etapa of competencia.etapas) {
           for (const nivel of etapa.niveles) {
 
-            // Con esto podemos filtrar por nivel (TODO)
-            // if (nivel.nivel === "B1" || nivel.nivel === "B2" || nivel.nivel === "C1" || nivel.nivel === "C2")
-            //   continue;
+            //Con esto  filtramos por nivel (TODO)
+            if (nivel.nivel === "A1" && !document.getElementById('check-a1').checked)
+              continue;
+            if (nivel.nivel === "A2" && !document.getElementById('check-a2').checked)
+              continue;
+            if (nivel.nivel === "B1" && !document.getElementById('check-b1').checked)
+              continue;
+            if (nivel.nivel === "B2" && !document.getElementById('check-b2').checked)
+              continue;
+            if (nivel.nivel === "C1" && !document.getElementById('check-c1').checked)
+              continue;
+            if (nivel.nivel === "C2" && !document.getElementById('check-c2').checked)
+              continue;
+
+            // area.titulo
+            // area.area
+            // competencia.competencia
+            // competencia.titulo
+            // etapa.etapa
+            // etapa.titulo
+            // nivel.nivel
+            // nivel.titulo
+            // indicador.indicador
+            // indicador.titulo
+            // nivel.afirmaciones_desempeño
+
+
 
             for (const indicador of nivel.indicadores_logro) {
+
+              var text = document.getElementById('search').value.toLowerCase();
+              if (text != "") {
+
+                  if (!area.titulo.toLowerCase().includes(text) &&
+                      !competencia.titulo.toLowerCase().includes(text) &&
+                      !etapa.etapa.toLowerCase().includes(text) &&
+                      !etapa.titulo.toLowerCase().includes(text) &&
+                      !nivel.nivel.toLowerCase().includes(text) &&
+                      !nivel.titulo.toLowerCase().includes(text) &&
+                      !indicador.titulo.toLowerCase().includes(text) &&
+                      !nivel.afirmaciones_desempeño.toLowerCase().includes(text)) {
+                    continue;
+   
+                }
+              }
+
+
+
               const row = document.createElement("tr");
               const areaCell = document.createElement("td");
               const competenciaCell = document.createElement("td");
@@ -36,10 +84,10 @@ xhr.onreadystatechange = function() {
               // Agregamos el color de fondo a la fila dependiendo del área
               row.classList.add(`area${area.area}`);
 
-      				areaCell.innerHTML = `<strong>${area.area}.</strong> ${area.titulo}`;
-      				competenciaCell.innerHTML = `<strong>${competencia.competencia}.</strong> ${competencia.titulo}`;
-      				etapaCell.innerHTML = `<strong>${etapa.etapa}.</strong> ${etapa.titulo}`;
-      				nivelCell.innerHTML = `<strong>${nivel.nivel}.</strong> ${nivel.titulo}`;
+              areaCell.innerHTML = `<strong>${area.area}.</strong> ${area.titulo}`;
+              competenciaCell.innerHTML = `<strong>${competencia.competencia}.</strong> ${competencia.titulo}`;
+              etapaCell.innerHTML = `<strong>${etapa.etapa}.</strong> ${etapa.titulo}`;
+              nivelCell.innerHTML = `<strong>${nivel.nivel}.</strong> ${nivel.titulo}`;
 
               // Mostramos un tooltip por si no es visible el texto de la celda
               areaCell.title = areaCell.innerText;
@@ -47,7 +95,7 @@ xhr.onreadystatechange = function() {
               etapaCell.title = etapaCell.innerText;
               nivelCell.title = nivelCell.innerText;
 
-			
+      
 
       const label = document.createElement('label');
       label.classList.add('form-check-label');
@@ -57,6 +105,7 @@ xhr.onreadystatechange = function() {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.classList.add('form-check-input');
+      checkbox.classList.add('indicator-checkbox');
 
       checkbox.setAttribute('data-area', area.area);
       checkbox.setAttribute('data-area-titulo', area.titulo);
@@ -100,10 +149,10 @@ xhr.onreadystatechange = function() {
       label.prepend(checkbox);
       indicadorCell.append(label);
       indicadorCell.addEventListener('click', toggleCheckbox);
-				
-				desempenoCell.textContent = nivel.afirmaciones_desempeño;
+        
+        desempenoCell.textContent = nivel.afirmaciones_desempeño;
 
-		  // Comprobar si las celdas anteriores tienen el mismo contenido y fusionarlas
+      // Comprobar si las celdas anteriores tienen el mismo contenido y fusionarlas
           if (lastAreaCell && lastAreaCell.textContent === areaCell.textContent) {
             lastAreaCell.rowSpan++;
             areaCell.style.display = "none";
@@ -135,21 +184,21 @@ xhr.onreadystatechange = function() {
 
           if (lastNivelCell && lastNivelCell.textContent === nivelCell.textContent) {
             lastNivelCell.rowSpan++;
-	        nivelCell.style.display = "none";
-	      } else {
-	        row.appendChild(nivelCell);
-	        lastNivelCell = nivelCell;
-      	  }
+          nivelCell.style.display = "none";
+        } else {
+          row.appendChild(nivelCell);
+          lastNivelCell = nivelCell;
+          }
 
             row.appendChild(indicadorCell);
 
-	          if (lastDesempenoCell && lastDesempenoCell.textContent === desempenoCell.textContent) {
-	            lastDesempenoCell.rowSpan++;
-		        desempenoCell.style.display = "none";
-		        } else {
-		        row.appendChild(desempenoCell);
-		        lastDesempenoCell = desempenoCell;
-	      	  }
+            if (lastDesempenoCell && lastDesempenoCell.textContent === desempenoCell.textContent) {
+              lastDesempenoCell.rowSpan++;
+            desempenoCell.style.display = "none";
+            } else {
+            row.appendChild(desempenoCell);
+            lastDesempenoCell = desempenoCell;
+            }
 
 
               tableBody.appendChild(row);
@@ -158,6 +207,22 @@ xhr.onreadystatechange = function() {
         }
       }
     }
+
+
+}
+
+
+
+
+// Cargar el archivo YAML
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function() {
+  if (this.readyState === 4 && this.status === 200) {
+    data = jsyaml.load(this.responseText).marco_referencia_competencia_digital_docente;
+    tableBody = document.querySelector("#table-body");
+
+    fillTable(data)
+
   }
 };
 
@@ -170,12 +235,12 @@ $(function(){
 });
 
 // Habilitar los checkboxes
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-checkboxes.forEach(checkbox => {
-  checkbox.addEventListener('click', () => {
-    checkbox.checked = !checkbox.checked;
-  });
-});
+// const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+// checkboxes.forEach(checkbox => {
+//   checkbox.addEventListener('click', () => {
+//     checkbox.checked = !checkbox.checked;
+//   });
+// });
 
 // Mostrar el modal
 const modal = document.querySelector('.modal');
@@ -193,7 +258,7 @@ function generarTexto() {
   const selectedData = {};
 
   // Recorrer los checkboxes seleccionados
-  const checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+  const checkedCheckboxes = document.querySelectorAll('input.indicator-checkbox[type="checkbox"]:checked');
   checkedCheckboxes.forEach(checkbox => {
     
     const indicador = checkbox.getAttribute("data-indicador");
@@ -325,6 +390,22 @@ $(document).ready(function() {
             link.click();
         });
     });
+
+
+  document.getElementById('search').addEventListener('keyup', function() {
+      console.log('Search keyup event');
+      fillTable(data, tableBody);
+    });
+
+  var checkboxes = document.querySelectorAll('.form-check-input');
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener('change', function() {
+      console.log('Checkbox change event');
+      fillTable(data, tableBody);
+    });
+  }
+
+
 });
 
 // // Obtener el botón y la tabla que se desea descargar como imagen
