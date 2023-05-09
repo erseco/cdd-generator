@@ -48,7 +48,7 @@ marco_referencia_competencia_digital_docente:
 
 1. Asegúrate de tener Node.js instalado en tu computadora.
 2. Navega hasta la carpeta de tu proyecto utilizando el comando `cd`.
-3. Instala `http-server` utilizando el comando `npm install http-server`. 
+3. Instala `http-server` utilizando el comando `npm -g install http-server`. 
 4. Ejecuta `http-server` en la carpeta de tu proyecto utilizando el comando `http-server`.
 5. Abre tu navegador web y accede a la dirección URL que se muestra en la terminal para ver tu proyecto y depurar cualquier problema que encuentres.
 
