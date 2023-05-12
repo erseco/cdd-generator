@@ -1,6 +1,6 @@
 # ELIDD
 
-ELIDD (**E**ntorno **L**igero e **I**nteractivo para Competencia **D**igital **D**ocente) es una herramienta web para generar los indicadores de la competencia digital docente. Puedes acceder al generador de indicadores en el sitio web [elidd.ernesto.es](https://elidd.ernesto.es).
+ELIDD (**E**ntorno **L**igero e **I**nteractivo para Competencia **D**igital **D**ocente) es una herramienta web para generar los indicadores de la competencia digital docente (CompDigEdu) o DigCompEdu por sus siglas en inglés. Puedes acceder al generador de indicadores en el sitio web [elidd.ernesto.es](https://elidd.ernesto.es).
 
 ![Captura de pantalla](screenshot.png)
 
