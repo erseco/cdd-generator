@@ -1,246 +1,190 @@
-var data;
-var tableBody;
 
-function fillTable(data) {
+// Funcion para quitar las tildes para uarlo en la búsqueda de texto
+function removeDiacritics(str) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
 
-  // Limpiamos las filas (excepto la primera)
-  // for(let i = tableBody.rows.length - 1; i > 0; i--)
-  //     tableBody.deleteRow(i);
-  $('#mrcdd-table tr').not(':first').remove();
+function createCell(tag, content, className) {
+  const cell = document.createElement(tag);
+  cell.classList.add(`td-${className}`);
+  cell.innerHTML = content;
+  return cell;
+}
 
+function addTooltip(cell) {
+  cell.title = cell.innerText;
+}
 
+function createCheckbox(area, competencia, etapa, nivel, indicador) {
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.classList.add('form-check-input');
+  checkbox.classList.add('indicator-checkbox');
+  checkbox.setAttribute('data-area', area.area);
+  checkbox.setAttribute('data-area-titulo', area.titulo);
+  checkbox.setAttribute('data-competencia', competencia.competencia);
+  checkbox.setAttribute('data-competencia-titulo', competencia.titulo);
+  checkbox.setAttribute('data-etapa', etapa.etapa);
+  checkbox.setAttribute('data-etapa-titulo', etapa.titulo);
+  checkbox.setAttribute('data-nivel', nivel.nivel);
+  checkbox.setAttribute('data-indicador', indicador.indicador);
+  checkbox.setAttribute('data-indicador-titulo', indicador.titulo);
+    // checkbox.setAttribute('name', `indicador-${indicador.indicador}`);
+  checkbox.setAttribute('name', `indicador-${indicador.indicador}-comp-${competencia.competencia}`);
+  checkbox.setAttribute('id', `indicador-${indicador.indicador}-comp-${competencia.competencia}`);
 
-  // Inicializar los valores de las celdas anteriores
-  let lastAreaCell, lastCompetenciaCell, lastEtapaCell, lastNivelCell, lastDesempenoCell;
+  return checkbox;
+}
 
-    // Recorrer los datos y crear las filas de la tabla
-    for (const area of data) {
-      for (const competencia of area.competencias) {
-        for (const etapa of competencia.etapas) {
-          for (const nivel of etapa.niveles) {
+function createLabel(indicador) {
+  const label = document.createElement('label');
+  label.classList.add('form-check-label');
+  label.innerHTML = `<strong>${indicador.indicador}.</strong> ${indicador.titulo}`;
+  return label;
+}
 
-            //Con esto  filtramos por nivel (TODO)
-            if (nivel.nivel === "A1" && !document.getElementById('check-a1').checked)
-              continue;
-            if (nivel.nivel === "A2" && !document.getElementById('check-a2').checked)
-              continue;
-            if (nivel.nivel === "B1" && !document.getElementById('check-b1').checked)
-              continue;
-            if (nivel.nivel === "B2" && !document.getElementById('check-b2').checked)
-              continue;
-            if (nivel.nivel === "C1" && !document.getElementById('check-c1').checked)
-              continue;
-            if (nivel.nivel === "C2" && !document.getElementById('check-c2').checked)
-              continue;
-
-            // area.titulo
-            // area.area
-            // competencia.competencia
-            // competencia.titulo
-            // etapa.etapa
-            // etapa.titulo
-            // nivel.nivel
-            // nivel.titulo
-            // indicador.indicador
-            // indicador.titulo
-            // nivel.afirmaciones_desempeño
-
-
-
-            for (const indicador of nivel.indicadores_logro) {
-
-              var text = document.getElementById('search').value.toLowerCase();
-              if (text != "") {
-
-                  if (!area.titulo.toLowerCase().includes(text) &&
-                      !competencia.titulo.toLowerCase().includes(text) &&
-                      !etapa.etapa.toLowerCase().includes(text) &&
-                      !etapa.titulo.toLowerCase().includes(text) &&
-                      !nivel.nivel.toLowerCase().includes(text) &&
-                      !nivel.titulo.toLowerCase().includes(text) &&
-                      !indicador.titulo.toLowerCase().includes(text) &&
-                      !nivel.afirmaciones_desempeño.toLowerCase().includes(text)) {
-                    continue;
-   
-                }
-              }
+function filterLevel(nivel) {
+  const levelChecks = {
+    "A1": 'check-a1',
+    "A2": 'check-a2',
+    "B1": 'check-b1',
+    "B2": 'check-b2',
+    "C1": 'check-c1',
+    "C2": 'check-c2',
+  };
+  const levelCheck = levelChecks[nivel.nivel];
+  return levelCheck && !document.getElementById(levelCheck).checked;
+}
 
 
+function handleTextSearch(area, competencia, etapa, nivel, indicador) {
+  const text = removeDiacritics(document.getElementById('search').value.toLowerCase());
+  if (text === "") return false;
+  const texts = [
+    area.titulo,
+    competencia.titulo,
+    etapa.etapa,
+    etapa.titulo,
+    nivel.nivel,
+    nivel.titulo,
+    indicador.titulo,
+    nivel.afirmaciones_desempeño,
+    nivel.ejemplos.join(","),
+    ].join(' ').toLowerCase();
 
-              const row = document.createElement("tr");
-              const areaCell = document.createElement("td");
-              const competenciaCell = document.createElement("td");
-              const etapaCell = document.createElement("td");
-              const nivelCell = document.createElement("td");
-              const indicadorCell = document.createElement("td");
-              const desempenoCell = document.createElement("td");
+    // Busca la cadena de texto en los textos combinados
+  return !removeDiacritics(texts).includes(text);
+}
 
-              etapaCell.classList.add('d-none');
-              etapaCell.classList.add('d-md-table-cell');
-              desempenoCell.classList.add('d-none');
-              desempenoCell.classList.add('d-md-table-cell');
+function createRow(area, competencia, etapa, nivel, indicador, lastCells) {
+  const row = document.createElement("tr");
 
+    // Crea celdas
+  const areaCell = createCell("td", `<strong>${area.area}.</strong> ${area.titulo}`, "area");
+  const competenciaCell = createCell("td", `<strong>${competencia.competencia}.</strong> ${competencia.titulo}`, "competencia");
+  const etapaCell = createCell("td", `<strong>${etapa.etapa}.</strong> ${etapa.titulo}`, "etapa");
+  const nivelCell = createCell("td", `<strong>${nivel.nivel}.</strong> ${nivel.titulo}`, "nivel");
+  const indicadorCell = document.createElement("td");
+  const desempenoCell = createCell("td", nivel.afirmaciones_desempeño + "<br /><strong>Ejemplos:</strong><br /><ul><li>" + nivel.ejemplos.join('</li><li>') + "</li></ul>", "desempeno");
 
-              // Agregamos el color de fondo a la fila dependiendo del área
-              row.classList.add(`area${area.area}`);
+    // Añade clases
+  etapaCell.classList.add('d-none', 'd-md-table-cell');
+  desempenoCell.classList.add('d-none', 'd-md-table-cell');
 
-              areaCell.innerHTML = `<strong>${area.area}.</strong> ${area.titulo}`;
-              competenciaCell.innerHTML = `<strong>${competencia.competencia}.</strong> ${competencia.titulo}`;
-              etapaCell.innerHTML = `<strong>${etapa.etapa}.</strong> ${etapa.titulo}`;
-              nivelCell.innerHTML = `<strong>${nivel.nivel}.</strong> ${nivel.titulo}`;
+    // Agregamos el color de fondo a la fila dependiendo del área
+  row.classList.add(`area${area.area}`);
 
-              // Mostramos un tooltip por si no es visible el texto de la celda
-              areaCell.title = areaCell.innerText;
-              competenciaCell.title = competenciaCell.innerText;
-              etapaCell.title = etapaCell.innerText;
-              nivelCell.title = nivelCell.innerText;
+    // Agrega tooltips
+  [areaCell, competenciaCell, etapaCell, nivelCell].forEach(cell => addTooltip(cell));
 
-      
+    // Construye la celda del indicador
+  const label = createLabel(indicador);
+  const checkbox = createCheckbox(area, competencia, etapa, nivel, indicador);
+  label.prepend(checkbox);
+  indicadorCell.append(label);
+  indicadorCell.addEventListener('click', toggleCheckbox);
 
-      const label = document.createElement('label');
-      label.classList.add('form-check-label');
-      label.innerHTML = `<strong>${indicador.indicador}.</strong> ${indicador.titulo}`;
-      // label.addEventListener('click', toggleCheckbox);
+    // Comprueba y fusiona celdas si el contenido es el mismo que el de la fila anterior
+  [areaCell, competenciaCell, etapaCell, nivelCell, desempenoCell].forEach((cell, index) => {
+    const lastCell = lastCells[index];
 
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.classList.add('form-check-input');
-      checkbox.classList.add('indicator-checkbox');
+        // Agregamos la celda del indicador justo antes del índice 4 (desmpenoCell)
+    if (index == 4)
+      row.appendChild(indicadorCell);
 
-      checkbox.setAttribute('data-area', area.area);
-      checkbox.setAttribute('data-area-titulo', area.titulo);
-      checkbox.setAttribute('data-competencia', competencia.competencia);
-      checkbox.setAttribute('data-competencia-titulo', competencia.titulo);
-      checkbox.setAttribute('data-etapa', etapa.etapa);
-      checkbox.setAttribute('data-etapa-titulo', etapa.titulo);
-      checkbox.setAttribute('data-nivel', nivel.nivel);
-      checkbox.setAttribute('data-indicador', indicador.indicador);
-      checkbox.setAttribute('data-indicador-titulo', indicador.titulo);
-      // checkbox.setAttribute('name', `indicador-${indicador.indicador}`);
-      checkbox.setAttribute('name', `indicador-${indicador.indicador}-comp-${competencia.competencia}`);
-      checkbox.setAttribute('id', `indicador-${indicador.indicador}-comp-${competencia.competencia}`);
-
-
-      // WIP
-      // // Escuchar el evento change en todos los checkboxes
-      //   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      //   checkboxes.forEach(checkbox => {
-      //     checkbox.addEventListener('change', () => {
-      //       // Desmarcar todos los checkboxes con el mismo número de indicador, la misma competencia y distinto nivel excepto el que ha cambiado
-      //       const indicador = checkbox.getAttribute('data-indicador');
-      //       const competencia = checkbox.getAttribute('data-competencia');
-      //       const checkboxesToUncheck = document.querySelectorAll(`input[name="indicador-${indicador}-comp-${competencia}"]:not(#${checkbox.id})`);
-      //       checkboxesToUncheck.forEach(checkboxToUncheck => {
-      //         checkboxToUncheck.checked = false;
-      //       });
-      //     });
-      //   });
-
-
-
-     // Asignar el evento click al checkbox y al texto del indicador
-      label.addEventListener('click', () => {
-        checkbox.checked = !checkbox.checked;
-      });
-      checkbox.addEventListener('click', (event) => {
-        event.stopPropagation(); // Evitar que el evento se propague al elemento padre
-      });
-
-      label.prepend(checkbox);
-      indicadorCell.append(label);
-      indicadorCell.addEventListener('click', toggleCheckbox);
-        
-        desempenoCell.textContent = nivel.afirmaciones_desempeño;
-
-      // Comprobar si las celdas anteriores tienen el mismo contenido y fusionarlas
-          if (lastAreaCell && lastAreaCell.textContent === areaCell.textContent) {
-            lastAreaCell.rowSpan++;
-            areaCell.style.display = "none";
-          } else {
-            // Agregamos el color
-            areaCell.classList.add(`area${area.area}`);
-            row.classList.add(`area${area.area}`);
-            areaCell.setAttribute('data-area', area.area);
-
-            row.appendChild(areaCell);
-            lastAreaCell = areaCell;
+    if (lastCell && lastCell.textContent === cell.textContent) {
+      lastCell.rowSpan++;
+      cell.style.display = "none";
+    } else {
+      row.appendChild(cell);
+            lastCells[index] = cell;  // Actualiza lastCells para la siguiente iteración
           }
+        });
 
-          if (lastCompetenciaCell && lastCompetenciaCell.textContent === competenciaCell.textContent) {
-            lastCompetenciaCell.rowSpan++;
-            competenciaCell.style.display = "none";
-          } else {
-            row.appendChild(competenciaCell);
-            lastCompetenciaCell = competenciaCell;
-          }
-
-          if (lastEtapaCell && lastEtapaCell.textContent === etapaCell.textContent) {
-            lastEtapaCell.rowSpan++;
-            etapaCell.style.display = "none";
-          } else {
-            row.appendChild(etapaCell);
-            lastEtapaCell = etapaCell;
-          }
-
-          if (lastNivelCell && lastNivelCell.textContent === nivelCell.textContent) {
-            lastNivelCell.rowSpan++;
-          nivelCell.style.display = "none";
-        } else {
-          row.appendChild(nivelCell);
-          lastNivelCell = nivelCell;
-          }
-
-            row.appendChild(indicadorCell);
-
-            if (lastDesempenoCell && lastDesempenoCell.textContent === desempenoCell.textContent) {
-              lastDesempenoCell.rowSpan++;
-            desempenoCell.style.display = "none";
-            } else {
-            row.appendChild(desempenoCell);
-            lastDesempenoCell = desempenoCell;
-            }
-
-
-              tableBody.appendChild(row);
-            }
-          }
-        }
-      }
-    }
-
-
+  return row;
 }
 
 
 
+var data;
+var tableBody;
 
-// Cargar el archivo YAML
-const xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function() {
-  if (this.readyState === 4 && this.status === 200) {
-    data = jsyaml.load(this.responseText).marco_referencia_competencia_digital_docente;
-    tableBody = document.querySelector("#table-body");
+function fillTable(data) {
+    // Limpiar las filas existentes, excepto la primera
+  $('#mrcdd-table tr').not(':first').remove();
 
-    fillTable(data)
+    // Obtener el cuerpo de la tabla
+  const tableBody = document.querySelector("#table-body");
 
+    // Inicializar las últimas celdas para la gestión de rowspan
+  let lastCells = [];
+
+    // Iterar sobre los datos y crear las filas
+  for (const area of data) {
+    for (const competencia of area.competencias) {
+      for (const etapa of competencia.etapas) {
+        for (const nivel of etapa.niveles) {
+
+                    // Filtrar por nivel
+          if (filterLevel(nivel)) continue;
+
+          for (const indicador of nivel.indicadores_logro) {
+
+                        // Manejar la búsqueda de texto
+            if (handleTextSearch(area, competencia, etapa, nivel, indicador)) continue;
+
+                        // Crear una nueva fila
+            const row = createRow(area, competencia, etapa, nivel, indicador, lastCells);
+
+                        // Añadir la fila al cuerpo de la tabla
+            tableBody.appendChild(row);
+                        // exit();
+          }
+
+        }
+      }
+    }
   }
-};
 
-xhr.open("GET", "mrcdd.yml");
-xhr.send();
+}
 
 
-$(function(){
-  $("table").resizableColumns();
-});
+function loadData(url, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+            //Asignamos los datos a la variable global data
+      data = jsyaml.load(this.responseText).marco_referencia_competencia_digital_docente;
+      callback(data);
+    }
+  };
+  xhr.open("GET", url);
+  xhr.send();
+}
 
-// Habilitar los checkboxes
-// const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-// checkboxes.forEach(checkbox => {
-//   checkbox.addEventListener('click', () => {
-//     checkbox.checked = !checkbox.checked;
-//   });
-// });
+// Cargando datos del yml:
+loadData("mrcdd.yml", fillTable);
+
 
 // Mostrar el modal
 const modal = document.querySelector('.modal');
@@ -260,7 +204,7 @@ function generarTexto() {
   // Recorrer los checkboxes seleccionados
   const checkedCheckboxes = document.querySelectorAll('input.indicator-checkbox[type="checkbox"]:checked');
   checkedCheckboxes.forEach(checkbox => {
-    
+
     const indicador = checkbox.getAttribute("data-indicador");
     const indicadorData = checkbox.getAttribute("data-indicador-titulo");
     const nivel = checkbox.getAttribute("data-nivel");
@@ -318,38 +262,38 @@ function generarTexto() {
         $(`.a${nivel[0].area}c${nivel[0].competencia[2]}`).text(vNivel);
 
         if (nivel.length == 1) {
-           texto +=`<span style="font-weight:bold;"> con el indicador ${nivel[0].indicador}.</span> ${nivel[0].indicadorData}.`;
-        } else {
-          texto +=`<span style="font-weight:bold;"> con los indicadores </span>`;
-          var i=0;
-          for (const indicador of nivel) {
-            const separador = "";
-            var ending = "";
-            if (i == nivel.length-1){
-              texto +=` y `;
-              ending = ".";
-            } else if (i > 0) { 
-              texto +=`; `;
-            }
-
-            texto +=`<span style="font-weight:bold;">${indicador.indicador}.</span> ${indicador.indicadorData}${ending}`;
-            i+=1;
-
+         texto +=`<span style="font-weight:bold;"> con el indicador ${nivel[0].indicador}.</span> ${nivel[0].indicadorData}.`;
+       } else {
+        texto +=`<span style="font-weight:bold;"> con los indicadores </span>`;
+        var i=0;
+        for (const indicador of nivel) {
+          const separador = "";
+          var ending = "";
+          if (i == nivel.length-1){
+            texto +=` y `;
+            ending = ".";
+          } else if (i > 0) {
+            texto +=`; `;
           }
-        }
-        }
-        texto += `</li>`;
-    }
-    texto += `</ul>`
-  }
 
-  const modalBody = document.querySelector('.resume-text');
-  modalBody.innerHTML = texto;
+          texto +=`<span style="font-weight:bold;">${indicador.indicador}.</span> ${indicador.indicadorData}${ending}`;
+          i+=1;
+
+        }
+      }
+    }
+    texto += `</li>`;
+  }
+  texto += `</ul>`
+}
+
+const modalBody = document.querySelector('.resume-text');
+modalBody.innerHTML = texto;
 
   // concatenamos la tabla resumen (un clon)
-  const resumenTable = $("#resumen").clone();
+const resumenTable = $("#resumen").clone();
   // modalBody.appendChild(resumenTable);
-  $(".resume-table").html(resumenTable);
+$(".resume-table").html(resumenTable);
 
 
 
@@ -357,191 +301,63 @@ function generarTexto() {
 
 // Marcar/desmarcar el checkbox al hacer clic en el texto del indicador o el checkbox
 function toggleCheckbox(event) {
-  const td = event.target.closest('td');
-  const checkbox = td.querySelector('input[type="checkbox"]');
-  const isTextClicked = event.target.matches('label.form-check-label') || event.target.matches('label.form-check-label *');
-  if (isTextClicked) {
-    checkbox.checked = !checkbox.checked;
-  }
-}
+    const td = event.target.closest('td');  // Encuentra la celda más cercana al elemento clicado
+    const checkbox = td.querySelector('input[type="checkbox"]');  // Encuentra el checkbox dentro de la celda
 
-new ClipboardJS('.btn-primary');
+    // Comprueba si el clic fue en el texto del indicador o en el checkbox
+    const isTextClicked = event.target.matches('label.form-check-label') || event.target.matches('label.form-check-label *');
+
+    // Cambia el estado del checkbox si se hizo clic en el texto
+    if (isTextClicked) {
+      checkbox.checked = !checkbox.checked;
+    }
+
+    // Si se hizo clic en el checkbox, detiene la propagación del evento para evitar que el clic en el checkbox cambie nuevamente su estado
+    event.stopPropagation();
+  }
+
+
+  new ClipboardJS('.btn-primary');
 
 // Muestra el modal si estamos en un movil
-document.addEventListener("DOMContentLoaded", function() {
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
-  if (isMobile) {
-    const mobileWarningModal = new bootstrap.Modal(document.getElementById("mobileWarningModal"));
-    mobileWarningModal.show();
-  }
-});
+  document.addEventListener("DOMContentLoaded", function() {
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    if (isMobile) {
+      const mobileWarningModal = new bootstrap.Modal(document.getElementById("mobileWarningModal"));
+      mobileWarningModal.show();
+    }
+  });
 
 
-$(document).ready(function() {
+  $(document).ready(function() {
     $('#download-button').click(function() {
-        html2canvas($('#resumen')[0], {
-            scale: 1.5,
-            width: $('.resume-table').width(),
-            height: $('.resume-table').height()
-        }).then(function(canvas) {
-            var link = document.createElement('a');
-            link.href = canvas.toDataURL("image/png");
-            link.download = 'tabla_resume.png';
-            link.click();
-        });
+      html2canvas($('#resumen')[0], {
+        scale: 1.5,
+        width: $('.resume-table').width(),
+        height: $('.resume-table').height()
+      }).then(function(canvas) {
+        var link = document.createElement('a');
+        link.href = canvas.toDataURL("image/png");
+        link.download = 'tabla_resume.png';
+        link.click();
+      });
     });
 
 
-  document.getElementById('search').addEventListener('keyup', function() {
+    document.getElementById('search').addEventListener('keyup', function() {
       console.log('Search keyup event');
       fillTable(data, tableBody);
     });
 
-  var checkboxes = document.querySelectorAll('.form-check-input');
-  for (var i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].addEventListener('change', function() {
-      console.log('Checkbox change event');
-      fillTable(data, tableBody);
-    });
-  }
+    var checkboxes = document.querySelectorAll('.form-check-input');
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].addEventListener('change', function() {
+        console.log('Checkbox change event');
+        fillTable(data, tableBody);
+      });
+    }
 
 
-});
+  });
 
-// // Obtener el botón y la tabla que se desea descargar como imagen
-// const btnDescargar = document.getElementById("download-button");
-// const tabla = document.getElementById("resumen");
-
-// // Asignar la función al botón como controlador de eventos
-// btnDescargar.addEventListener("click", function() {
-
-//   // Renderizar la tabla en un canvas utilizando html2canvas
-//   html2canvas(tabla).then(canvas => {
-
-//     // Convertir el canvas en un objeto Blob
-//     canvas.toBlob(blob => {
-
-//       // Crear un objeto URL a partir del blob
-//       const url = window.URL.createObjectURL(blob);
-
-//       // Crear un enlace de descarga para el archivo PNG
-//       const link = document.createElement("a");
-//       link.download = "miTabla.png";
-//       link.href = url;
-
-//       // Hacer clic en el enlace de descarga para descargar el archivo
-//       link.click();
-
-//       // Liberar el objeto URL
-//       window.URL.revokeObjectURL(url);
-//     }, "image/png");
-//   });
-// });
-
-
-
-
-
-// $(document).ready(function() {
-//   $("#searchInput").on("keyup", function() {
-//     const searchTerm = $(this).val().toLowerCase();
-//     const table = $("#mrcdd-table");
-//     const rows = table.find("tbody tr");
-
-//     rows.each(function() {
-//       const row = $(this);
-//       const rowText = row.text().toLowerCase();
-
-//       if (rowText.indexOf(searchTerm) === -1) {
-//         row.hide();
-//         const rowspanCells = row.find("td[rowspan]");
-//         rowspanCells.each(function() {
-//           const rowspanCell = $(this);
-//           const rowspanValue = parseInt(rowspanCell.attr("rowspan"));
-//           if (rowspanValue) {
-//             rowspanCell.attr("rowspan", rowspanValue - 1);
-//             const nextRow = row.next();
-//             nextRow.prepend(rowspanCell.clone());
-//             rowspanCell.remove();
-//           }
-//         });
-//       } else {
-//         row.show();
-//         const prevRow = row.prev();
-//         const prevRowHidden = prevRow.css("display") === "none";
-//         if (prevRowHidden) {
-//           const rowspanCells = prevRow.find("td[rowspan]");
-//           rowspanCells.each(function() {
-//             const rowspanCell = $(this);
-//             const rowspanValue = parseInt(rowspanCell.attr("rowspan"));
-//             if (rowspanValue) {
-//               rowspanCell.attr("rowspan", rowspanValue + 1);
-//               row.find("td[rowspan]").first().remove();
-//             }
-//           });
-//         }
-//       }
-//     });
-//   });
-// });
-
-//   function filterTable(table) {
-//     const rows = table.getElementsByTagName('tr');
-//     for (let i = 1; i < rows.length; i++) {
-//       const tds = rows[i].getElementsByTagName('td');
-//       let visibleCount = 0;
-//       for (let j = 0; j < tds.length; j++) {
-//         const text = tds[j].textContent.toLowerCase();
-//         if (j !== 4 && text.indexOf(filter) === -1) {
-//           tds[j].style.display = 'none';
-//           if (tds[j].rowSpan > 1) {
-//             adjustRowspans(tds[j], -1);
-//           }
-//         } else {
-//           tds[j].style.display = '';
-//           visibleCount++;
-//         }
-//       }
-//       if (visibleCount === 1) {
-//         rows[i].style.display = 'none';
-//       } else {
-//         rows[i].style.display = '';
-//       }
-//     }
-//   }
-
-//   function resetTable(table) {
-//     const parentNode = table.parentNode;
-//     parentNode.replaceChild(originalTable, table);
-//     table = originalTable;
-//   }
-
-// document.getElementById('filtro').addEventListener('input', function() {
-//   const filter = this.value.toLowerCase();
-//   const table = document.getElementById('mrcdd-table');
-//   const originalTable = table.cloneNode(true);
-  
-//   function adjustRowspans(td, change) {
-//     let current = td;
-//     while (current.previousElementSibling) {
-//       current = current.previousElementSibling;
-//       if (current.rowSpan > 1) {
-//         current.rowSpan += change;
-//       }
-//     }
-    
-//     current = td;
-//     while (current.nextElementSibling) {
-//       current = current.nextElementSibling;
-//       if (current.rowSpan > 1) {
-//         current.rowSpan += change;
-//       }
-//     }
-//   }
-
-
-  
-//   resetTable(table);
-//   filterTable(table);
-// });
 
