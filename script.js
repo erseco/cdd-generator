@@ -183,7 +183,7 @@ function loadData(url, callback) {
 }
 
 // Cargando datos del yml:
-loadData("mrcdd.yml", fillTable);
+loadData("mrcdd.yml?v=1697840474", fillTable);
 
 
 // Mostrar el modal
