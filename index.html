@@ -8,56 +8,47 @@
   <meta name="description" content="Herramienta web para generar los indicadores de la competencia digital docente.">
   <meta name="author" content="Ernesto Serrano">
   <meta name="keywords" content="elidd, competencia digital docente, indicadores, herramienta web">
-	<meta property="og:title" content="ELIDD">
-	<meta property="og:description" content="Entorno Ligero e Interactivo para la generación de indicadores de la Competencia Digital Docente">
-	<meta property="og:image" content="https://elidd.ernesto.es/screenshot.png">
-	<meta property="og:url" content="https://elidd.ernesto.es">
-	<meta property="og:type" content="website">
+  <meta property="og:title" content="ELIDD">
+  <meta property="og:description" content="Entorno Ligero e Interactivo para la generación de indicadores de la Competencia Digital Docente">
+  <meta property="og:image" content="https://elidd.ernesto.es/screenshot.png">
+  <meta property="og:url" content="https://elidd.ernesto.es">
+  <meta property="og:type" content="website">
 
 
   <!-- Incluir Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha384-5AkRS45j4ukf+JbWAfHL8P4onPA9p0KwwP7pUdjSQA3ss9edbJUJc/XcYAiheSSz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/jquery-resizable-columns/dist/jquery.resizableColumns.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-resizable-columns/dist/jquery.resizableColumns.min.css">
-
-	<!-- Incluir js-yaml -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <!-- Incluir js-yaml -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
   <!-- Incluir html2canvas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
 
-	<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-  <!-- <input type="text" id="filtro" placeholder="Buscar..."> -->
-	<!-- <div class="table-responsive"> -->
-<!-- <div class="container"> -->
-
 	<table id="mrcdd-table" class="table table-sm">
-	  <thead>
-	    <tr>
-	      <th style="width: 5%">Área</th>
-	      <th style="width: 5%">Competencia</th>
-	      <th style="width: 10%" class="d-none d-md-table-cell">Etapa</th>
-	      <th style="width: 10%">Nivel</th>
-	      <th style="width: 50%">Indicador de logro</th>
-	      <th style="width: 10%" class="d-none d-md-table-cell">Afirmación sobre el desempeño</th>
-	    </tr>
-	  </thead>
-	  <tbody id="table-body"></tbody>
-	</table>
-<!-- </div> -->
-<!-- Agregar el botón flotante GENERAR y el modal -->
-<div class="fixed-bottom d-flex justify-content-end m-3">
+   <thead>
+     <tr>
+       <th style="width: 5%">Área</th>
+       <th style="width: 5%">Competencia</th>
+       <th style="width: 10%" class="d-none d-md-table-cell">Etapa</th>
+       <th style="width: 10%">Nivel</th>
+       <th style="width: 30%">Indicador de logro</th>
+       <th style="width: 30%" class="d-none d-md-table-cell">Afirmación sobre el desempeño</th>
+     </tr>
+   </thead>
+   <tbody id="table-body"></tbody>
+ </table>
+ <!-- Agregar el botón flotante GENERAR y el modal -->
+ <div class="fixed-bottom d-flex justify-content-end m-3">
   <button type="button" class="btn btn-primary btn-lg btn-generar" data-toggle="modal" data-target="#exampleModal">
     GENERAR
   </button>
@@ -75,14 +66,14 @@
       </div>
       <div class="modal-body" id="generated-text">
         <div id="resume-text" class="resume-text">
-        <p>Aquí aparecerán las áreas, competencias, niveles e indicadores de la Competencia Digital Docente.</p>
+          <p>Aquí aparecerán las áreas, competencias, niveles e indicadores de la Competencia Digital Docente.</p>
         </div>
         <div class="resume-table">
         </div>
       </div>
       <div class="modal-footer">
-          <button id="download-button" type="button" class="btn btn-secondary d-none d-md-table-cell">Descargar tabla</button>
-      	  <button id="copy-button" type="button" class="btn btn-primary " data-clipboard-target="#resume-text">Copiar al portapapeles</button>
+        <button id="download-button" type="button" class="btn btn-secondary d-none d-md-table-cell">Descargar tabla</button>
+        <button id="copy-button" type="button" class="btn btn-primary " data-clipboard-target="#resume-text">Copiar al portapapeles</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
@@ -91,70 +82,70 @@
 
 <!-- Tabla resumen, está oculta, para luego  -->
 <div class="hidden" id="hiddenTableContainer">
-<table id="resumen" class="d-none d-md-table-cell">
-<thead>
-  <tr>
-    <th class="area1" colspan="5">1. Compromiso Profesional</th>
-    <th class="area2" colspan="3">2. Contenidos Digitales </th>
-    <th class="area3" colspan="4">3. Enseñanza y aprendizaje</th>
-    <th class="area4" colspan="3">4. Evaluación y retroalimentación</th>
-    <th class="area5" colspan="3">5. Empoderamiento del alumnado</th>
-    <th class="area6" colspan="5">6. Desarrollo de la competencia digital del alumnado</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td class="area1">1.1</td>
-    <td class="area1">1.2</td>
-    <td class="area1">1.3</td>
-    <td class="area1">1.4</td>
-    <td class="area1">1.5</td>
-    <td class="area2">2.1</td>
-    <td class="area2">2.2</td>
-    <td class="area2">2.3</td>
-    <td class="area3">3.1</td>
-    <td class="area3">3.2</td>
-    <td class="area3">3.3</td>
-    <td class="area3">3.4</td>
-    <td class="area4">4.1</td>
-    <td class="area4">4.2</td>
-    <td class="area4">4.3</td>
-    <td class="area5">5.1</td>
-    <td class="area5">5.2</td>
-    <td class="area5">5.3</td>
-    <td class="area6">6.1</td>
-    <td class="area6">6.2</td>
-    <td class="area6">6.3</td>
-    <td class="area6">6.4</td>
-    <td class="area6">6.5</td>
-  </tr>
-  <tr>
-    <td class="cell-r0 a1c1"> </td>
-    <td class="cell-r0 a1c2">A1</td>
-    <td class="cell-r0 a1c3"> </td>
-    <td class="cell-r0 a1c4">A1</td>
-    <td class="cell-r0 a1c5">A1</td>
-    <td class="cell-r0 a2c1"> </td>
-    <td class="cell-r0 a2c2">A1</td>
-    <td class="cell-r0 a2c3"> </td>
-    <td class="cell-r0 a3c1"> </td>
-    <td class="cell-r0 a3c2"> </td>
-    <td class="cell-r0 a3c3"> </td>
-    <td class="cell-r0 a3c4"> </td>
-    <td class="cell-r0 a4c1"> </td>
-    <td class="cell-r0 a4c2"> </td>
-    <td class="cell-r0 a4c3"> </td>
-    <td class="cell-r0 a5c1"> </td>
-    <td class="cell-r0 a5c2"> </td>
-    <td class="cell-r0 a5c3"> </td>
-    <td class="cell-r0 a6c1"> </td>
-    <td class="cell-r0 a6c2">A1</td>
-    <td class="cell-r0 a6c3"> </td>
-    <td class="cell-r0 a6c4">A1</td>
-    <td class="cell-r0 a6c5"> </td>
-  </tr>
-</tbody>
-</table>
+  <table id="resumen" class="d-none d-md-table-cell">
+    <thead>
+      <tr>
+        <th class="area1" colspan="5">1. Compromiso Profesional</th>
+        <th class="area2" colspan="3">2. Contenidos Digitales </th>
+        <th class="area3" colspan="4">3. Enseñanza y aprendizaje</th>
+        <th class="area4" colspan="3">4. Evaluación y retroalimentación</th>
+        <th class="area5" colspan="3">5. Empoderamiento del alumnado</th>
+        <th class="area6" colspan="5">6. Desarrollo de la competencia digital del alumnado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="area1">1.1</td>
+        <td class="area1">1.2</td>
+        <td class="area1">1.3</td>
+        <td class="area1">1.4</td>
+        <td class="area1">1.5</td>
+        <td class="area2">2.1</td>
+        <td class="area2">2.2</td>
+        <td class="area2">2.3</td>
+        <td class="area3">3.1</td>
+        <td class="area3">3.2</td>
+        <td class="area3">3.3</td>
+        <td class="area3">3.4</td>
+        <td class="area4">4.1</td>
+        <td class="area4">4.2</td>
+        <td class="area4">4.3</td>
+        <td class="area5">5.1</td>
+        <td class="area5">5.2</td>
+        <td class="area5">5.3</td>
+        <td class="area6">6.1</td>
+        <td class="area6">6.2</td>
+        <td class="area6">6.3</td>
+        <td class="area6">6.4</td>
+        <td class="area6">6.5</td>
+      </tr>
+      <tr>
+        <td class="cell-r0 a1c1"> </td>
+        <td class="cell-r0 a1c2">A1</td>
+        <td class="cell-r0 a1c3"> </td>
+        <td class="cell-r0 a1c4">A1</td>
+        <td class="cell-r0 a1c5">A1</td>
+        <td class="cell-r0 a2c1"> </td>
+        <td class="cell-r0 a2c2">A1</td>
+        <td class="cell-r0 a2c3"> </td>
+        <td class="cell-r0 a3c1"> </td>
+        <td class="cell-r0 a3c2"> </td>
+        <td class="cell-r0 a3c3"> </td>
+        <td class="cell-r0 a3c4"> </td>
+        <td class="cell-r0 a4c1"> </td>
+        <td class="cell-r0 a4c2"> </td>
+        <td class="cell-r0 a4c3"> </td>
+        <td class="cell-r0 a5c1"> </td>
+        <td class="cell-r0 a5c2"> </td>
+        <td class="cell-r0 a5c3"> </td>
+        <td class="cell-r0 a6c1"> </td>
+        <td class="cell-r0 a6c2">A1</td>
+        <td class="cell-r0 a6c3"> </td>
+        <td class="cell-r0 a6c4">A1</td>
+        <td class="cell-r0 a6c5"> </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 <!-- </div> -->
 
@@ -179,52 +170,52 @@
 </div>
 
 <div class="bottom-bar">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <input type="search" class="form-control" id="search" placeholder="Filtrar">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <input type="search" class="form-control" id="search" placeholder="Filtrar">
+      </div>
+      <div class="col">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" checked value="" id="check-a1">
+          <label class="form-check-label" for="check-a1">A1</label>
         </div>
-        <div class="col">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" checked value="" id="check-a1">
-            <label class="form-check-label" for="check-a1">A1</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" checked value="" id="check-a2">
-            <label class="form-check-label" for="check-a2">A2</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" checked value="" id="check-b1">
-            <label class="form-check-label" for="check-b1">B1</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" checked value="" id="check-b2">
-            <label class="form-check-label" for="check-b2">B2</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" value="" id="check-c1">
-            <label class="form-check-label" for="check-c1">C1</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" value="" id="check-c2">
-            <label class="form-check-label" for="check-c2">C2</label>
-          </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" checked value="" id="check-a2">
+          <label class="form-check-label" for="check-a2">A2</label>
         </div>
-        <div class="col">
-          <!-- <button class="btn btn-primary" id="generate">Generate</button> -->
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" checked value="" id="check-b1">
+          <label class="form-check-label" for="check-b1">B1</label>
         </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" checked value="" id="check-b2">
+          <label class="form-check-label" for="check-b2">B2</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" value="" id="check-c1">
+          <label class="form-check-label" for="check-c1">C1</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" value="" id="check-c2">
+          <label class="form-check-label" for="check-c2">C2</label>
+        </div>
+      </div>
+      <div class="col">
+        <!-- <button class="btn btn-primary" id="generate">Generate</button> -->
       </div>
     </div>
   </div>
+</div>
 
 
 <footer class="footer">
-    <div class="text-center">
+  <div class="text-center">
     <small class="copyright">Designed with&nbsp;❤️&nbsp;from a remote island  <a href="https://github.com/erseco/elidd">(source code)</a>
-</small><br>
-<small class="copyright">2023 © Ernesto Serrano
-</small></div></footer>
+    </small><br>
+    <small class="copyright">2023 © Ernesto Serrano
+    </small></div></footer>
 
-</body>
-<script type="text/javascript" src="script.js"></script>
-</html>
+  </body>
+  <script type="text/javascript" src="script.js"></script>
+  </html>
