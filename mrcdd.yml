@@ -92,9 +92,10 @@ marco_referencia_competencia_digital_docente:
                 - indicador: 3
                   titulo: "Presta apoyo, de manera informal, a otros docentes, en la correcta utilización de las tecnologías para la comunicación del centro"
               afirmaciones_desempeño: Aplico y difundo (en el centro) el uso de tecnologías digitales para la comunicación en nuevos contextos
-              ejemplos:
-                - Utilizo los cauces establecidos por la A. E. o el titular del centro para comunicarme con las familias, el alumnado, etc.
-                - Participo en la elaboración de contenidos en el blog, web del centro, RR. SS., etc. aplicando las normas de estilo y la política de uso aceptable establecida por el centro educativo.
+              ejemp los:
+                - Creo hilos de discusión sobre la huella digital, el ciberacoso... en el foro del centro. 
+                - Participo en la comisión de trabajo para la creación de un manual de estilo corporativo de las publicaciones en la web del centro. 
+                - Ayudo a otros docentes de mi centro en el uso de las herramientas de comunicación, por ejemplo, publicación de contenidos en la web.  
         - etapa: C
           titulo: Investigación, evaluación y diseño de nuevas estrategias de comunicación organizativa en contextos educativos
           niveles:
@@ -151,8 +152,8 @@ marco_referencia_competencia_digital_docente:
                   titulo: Utiliza, de forma guiada, las distintas plataformas de participación y coordinación docentes establecidas por la AE o los titulares del centro
               afirmaciones_desempeño: Participo, mediante tecnologías digitales, en los órganos de coordinación y de gobierno de forma guiada
               ejemplos:
-                - Utilizo herramientas de trabajo colaborativo en la nube para la realización de trabajos grupales.
-                - Compruebo las condiciones de privacidad y me informo de las características funcionales de las plataformas de colaboración antes de utilizarlas.
+                - Participo, con ayuda inicial, en claustros o reuniones de departamento a través de herramientas de videoconferencia ofrecidas por la A. E. o los titulares del centro. 
+                - Utilizo, con ayuda de manuales, las herramientas de coordinación del equipo docente para el seguimiento del alumnado, haciendo uso de las aplicaciones ofrecidas por la A. E. o los titulares del centro.  
         - etapa: B
           titulo: Utilización de las tecnologías digitales del centro para la participación y coordinación docente y transferencia de las estrategias de colaboración al desarrollo de proyectos institucionales
           niveles:
@@ -178,8 +179,11 @@ marco_referencia_competencia_digital_docente:
                   titulo: "Asesora, de modo informal, a otros docentes en el uso de las tecnologías digitales para la colaboración docente"
               afirmaciones_desempeño: Adapto, dentro de las pautas contempladas en el plan digital del centro, las estrategias de colaboración profesional a la finalidad de los proyectos institucionales o tareas específicas en los que participo y a las características de las plataformas digitales empleadas
               ejemplos:
-                - Empleo, siguiendo los protocolos fijados, las herramientas digitales proporcionadas por la A. E. o por los titulares del centro para recoger, en el ejercicio de las labores de tutoría, las conclusiones de las juntas de evaluación y elaborar los informes del alumnado.
-                - Utilizo plataformas institucionales para la colaboración con los servicios sociales del ayuntamiento.
+                - Ayudo a otros docentes de mi centro en el uso de las herramientas de participación y colaboración, incorporadas, por ejemplo, al software de videoconferencia. 
+                - Empleo la plataforma de colaboración del centro para coordinar las actuaciones del equipo docente en el desarrollo de un proyecto interdisciplinar con el alumnado del que soy responsable. 
+                - Colaboro con docentes de otros centros educativos europeos para poner en marcha actividades educativas conjuntas con nuestro alumnado a través de la plataforma eTwinning. 
+                - Colaboro con los investigadores del Instituto de Astrofísica de Canarias (IAC) para que mi alumnado participe en proyecto educativo con Telescopios Robóticos (PETeR). 
+                - Colaboro con los tutores de 1º de la ESO del IES al que está adscrito el colegio en el que trabajo para desarrollar actividades que faciliten la transición de mi alumnado de una etapa educativa a otra. 
         - etapa: C
           titulo: Innovación de las prácticas profesionales docentes de participación, coordinación y colaboración mediante tecnologías digitales
           niveles:
@@ -272,8 +276,10 @@ marco_referencia_competencia_digital_docente:
                   titulo: "Diseña estrategias para gestionar la incertidumbre derivada de la planificación de prácticas transformadoras perfiladas tras el análisis"
               afirmaciones_desempeño: Analizo de forma sistemática mis prácticas digitales para identificar el modelo pedagógico subyacente (colaborativo, competitivo, individual, grupal, etc.) y poder, así, redefinirlas
               ejemplos:
-                - Me informo de modelos de integración de las tecnologías para desarrollar el aprendizaje colaborativo trasladando, directamente, experiencias desarrolladas en otros centros.
-                - Consulto a un compañero o compañera el proceso que debo seguir para realizar una experiencia de realidad aumentada en el aula con el fin de evitar las conductas disruptivas que se generaron en una clase anterior mientras instalábamos el software en los móviles.
+                - Utilizo distintas herramientas (diario, registro anecdótico, listas de control, escalas, etc.) para analizar mi práctica pedagógica digital y las concepciones que la sustentan. 
+                - Participo en experiencias de análisis y reflexión conjunta a partir de la observación mutua del desempeño docente con tecnologías digitales. 
+                - Modifico el uso que realizo habitualmente de las tecnologías digitales, a partir de un proceso sistemático de recogida de datos e información, para el diseño de nuevas soluciones orientadas a mejorar mi práctica pedagógica digital.  
+                - Colaboro en la elaboración de un procedimiento de evaluación de la práctica pedagógica digital para determinar su validez y realizar propuestas de mejora que se incluirán en la memoria de la PGA
         - etapa: C
           titulo: Investigación y evaluación sobre prácticas pedagógicas digitales
           niveles:
@@ -318,10 +324,9 @@ marco_referencia_competencia_digital_docente:
                   titulo: Identifica sus necesidades de desarrollo profesional para aplicar en la práctica, mediante las tecnologías digitales, su formación teórica
               afirmaciones_desempeño: Empleo las tecnologías digitales para identificar y reflexionar, de forma teórica, sobre las habilidades pedagógicas que caracterizan a un buen docente, en especial su competencia digital, para tenerlo como referente en mi desarrollo profesional continuo (DPC)
               ejemplos:
-                - Ejemplos:
-                  - Comprendo cómo un determinado uso pedagógico de la tecnología puede ayudar a definir mi modelo de práctica docente basado en la innovación.
-                  - Conozco distintas estrategias para analizar la observación del desempeño en las prácticas docentes de cara a identificar mis necesidades formativas sobre el uso pedagógico de las tecnologías digitales.
-                  - Analizo, de forma teórica y en el contexto de una actividad formativa, el modelo pedagógico asociado al uso de las tecnologías en educación, por ejemplo, el procedimiento para administrar refuerzos positivos y defino el modelo profesional capaz de aplicarlas.
+                - Comprendo cómo un determinado uso pedagógico de la tecnología puede ayudar a definir mi modelo de práctica docente basado en la innovación.
+                - Conozco distintas estrategias para analizar la observación del desempeño en las prácticas docentes de cara a identificar mis necesidades formativas sobre el uso pedagógico de las tecnologías digitales.
+                - Analizo, de forma teórica y en el contexto de una actividad formativa, el modelo pedagógico asociado al uso de las tecnologías en educación, por ejemplo, el procedimiento para administrar refuerzos positivos y defino el modelo profesional capaz de aplicarlas.
                 - Comparo las estrategias que generan competitividad con las que promueven la colaboración en los diferentes modelos de aplicación de la "gamificación" utilizando las tecnologías digitales.
             - nivel: A2
               titulo: Participación en actividades formativas vinculadas con la práctica inicial contextualizada en el centro y en el propio desempeño profesional sobre y/o a través de las tecnologías digitales
@@ -330,11 +335,8 @@ marco_referencia_competencia_digital_docente:
                   titulo: Aprovecha las oportunidades de aprendizaje en su centro y las que obtiene a través de la red para su desarrollo profesional
               afirmaciones_desempeño: Identifico, con ayuda de otros compañeros y/o expertos, mis necesidades de formación para el desarrollo de mi práctica profesional sobre y a través de las tecnologías digitales
               ejemplos:
-                - Ejemplos:
-                  - Comprendo cómo un determinado uso pedagógico de la tecnología puede ayudar a definir mi modelo de práctica docente basado en la innovación.
-                  - Conozco distintas estrategias para analizar la observación del desempeño en las prácticas docentes de cara a identificar mis necesidades formativas sobre el uso pedagógico de las tecnologías digitales.
-                  - Analizo, de forma teórica y en el contexto de una actividad formativa, el modelo pedagógico asociado al uso de las tecnologías en educación, por ejemplo, el procedimiento para administrar refuerzos positivos y defino el modelo profesional capaz de aplicarlas.
-                - Comparo las estrategias que generan competitividad con las que promueven la colaboración en los diferentes modelos de aplicación de la "gamificación" utilizando las tecnologías digitales.
+                - Participo en seminarios web para dar respuesta a las necesidades formativas relacionadas con el proyecto educativo del centro. 
+                - Empleo las tecnologías digitales (grabaciones de vídeo, circuito cerrado de televisión -CCTV-, etc.) para analizar la práctica docente de mis compañeros y la mía propia para valorar mis necesidades de desarrollo profesional. 
         - etapa: B
           titulo: Selección y participación en actividades de desarrollo profesional docente adaptadas a sus necesidades sobre o a través de las tecnologías digitales
           niveles:
@@ -389,8 +391,8 @@ marco_referencia_competencia_digital_docente:
                   titulo: "Crea y aplica nuevos modelos de DPC sobre o a través de las tecnologías digitales"
               afirmaciones_desempeño: Diseño, a través de procesos de investigación, y aplico nuevos modelos de desarrollo profesional docente con compañeros utilizando las tecnologías digitales
               ejemplos:
-                - He actuado como tutor en distintos cursos en línea relacionados con la integración de las tecnologías en el aula.
-                - Publico contenidos que puedan resultar de interés para el desarrollo profesional de otros docentes (uso de herramientas digitales, creación de recursos, integración de las tecnologías digitales en el aula, etc.).
+                - Elaboro cursos de formación en línea (abiertos, tutorizados, etc.) adaptados a los nuevos modelos de diseño instruccional para el desarrollo profesional docente. 
+                - Llevo a cabo un proyecto de investigación sobre el impacto de la mejora del desempeño docente del profesorado que participa en comunidades profesionales virtuales.  
     - competencia: 1.5
       titulo: Protección de datos personales, privacidad, seguridad y bienestar digital
       descripcion: Proteger los datos personales, las comunicaciones y el acceso a los dispositivos, dentro del ámbito educativo, para evitar los riesgos y amenazas que afecten a los derechos y garantías digitales de todos los miembros de la comunidad educativa contemplados en la normativa vigente. Utilizar de manera responsable, segura y saludable las tecnologías digitales para evitar riesgos laborales, personales y en el entorno y para garantizar el bienestar físico, psicológico y social del alumnado al utilizar las tecnologías digitales
