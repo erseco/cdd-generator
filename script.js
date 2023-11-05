@@ -29,7 +29,6 @@ function createCheckbox(area, competencia, etapa, nivel, indicador) {
   checkbox.setAttribute('data-nivel', nivel.nivel);
   checkbox.setAttribute('data-indicador', indicador.indicador);
   checkbox.setAttribute('data-indicador-titulo', indicador.titulo);
-    // checkbox.setAttribute('name', `indicador-${indicador.indicador}`);
   checkbox.setAttribute('name', `indicador-${indicador.indicador}-comp-${competencia.competencia}`);
   checkbox.setAttribute('id', `indicador-${indicador.indicador}-comp-${competencia.competencia}`);
 
@@ -97,18 +96,17 @@ function createRow(area, competencia, etapa, nivel, indicador, lastCells) {
     // Agrega tooltips
   [areaCell, competenciaCell, etapaCell, nivelCell].forEach(cell => addTooltip(cell));
 
-    // Construye la celda del indicador
+  // Construye la celda del indicador
   const label = createLabel(indicador);
   const checkbox = createCheckbox(area, competencia, etapa, nivel, indicador);
   label.prepend(checkbox);
   indicadorCell.append(label);
-  indicadorCell.addEventListener('click', toggleCheckbox);
 
-    // Comprueba y fusiona celdas si el contenido es el mismo que el de la fila anterior
+  // Comprueba y fusiona celdas si el contenido es el mismo que el de la fila anterior
   [areaCell, competenciaCell, etapaCell, nivelCell, desempenoCell].forEach((cell, index) => {
     const lastCell = lastCells[index];
 
-        // Agregamos la celda del indicador justo antes del índice 4 (desmpenoCell)
+    // Agregamos la celda del indicador justo antes del índice 4 (desmpenoCell)
     if (index == 4)
       row.appendChild(indicadorCell);
 
@@ -145,20 +143,20 @@ function fillTable(data) {
       for (const etapa of competencia.etapas) {
         for (const nivel of etapa.niveles) {
 
-                    // Filtrar por nivel
+          // Filtrar por nivel
           if (filterLevel(nivel)) continue;
 
           for (const indicador of nivel.indicadores_logro) {
 
-                        // Manejar la búsqueda de texto
+            // Manejar la búsqueda de texto
             if (handleTextSearch(area, competencia, etapa, nivel, indicador)) continue;
 
-                        // Crear una nueva fila
+            // Crear una nueva fila
             const row = createRow(area, competencia, etapa, nivel, indicador, lastCells);
 
-                        // Añadir la fila al cuerpo de la tabla
+            // Añadir la fila al cuerpo de la tabla
             tableBody.appendChild(row);
-                        // exit();
+            
           }
 
         }
@@ -170,28 +168,32 @@ function fillTable(data) {
 
 
 function loadData(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (this.readyState === 4 && this.status === 200) {
-            //Asignamos los datos a la variable global data
-      data = jsyaml.load(this.responseText).marco_referencia_competencia_digital_docente;
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.text();
+    })
+    .then(dataYaml => {
+      // Assuming the YAML content is directly convertible to the required JavaScript object
+      data = jsyaml.load(dataYaml).marco_referencia_competencia_digital_docente;
       callback(data);
-    }
-  };
-  xhr.open("GET", url);
-  xhr.send();
+    })
+    .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
 }
+
 
 // Cargando datos del yml:
 loadData("mrcdd.yml", fillTable);
 
 
 // Mostrar el modal
-const modal = document.querySelector('.modal');
 const generarBtn = document.querySelector('.btn-generar');
 generarBtn.addEventListener('click', () => {
 	generarTexto();
-  // modal.showModal();
 });
 
 // Obtener los checkboxes marcados y generar el texto para el modal
@@ -287,77 +289,55 @@ function generarTexto() {
   texto += `</ul>`
 }
 
-const modalBody = document.querySelector('.resume-text');
-modalBody.innerHTML = texto;
+  const modalBody = document.querySelector('.resume-text');
+  modalBody.innerHTML = texto;
 
-  // concatenamos la tabla resumen (un clon)
-const resumenTable = $("#resumen").clone();
-  // modalBody.appendChild(resumenTable);
-$(".resume-table").html(resumenTable);
-
-
+    // concatenamos la tabla resumen (un clon)
+  const resumenTable = $("#resumen").clone();
+  $(".resume-table").html(resumenTable);
 
 }
 
-// Marcar/desmarcar el checkbox al hacer clic en el texto del indicador o el checkbox
-function toggleCheckbox(event) {
-    const td = event.target.closest('td');  // Encuentra la celda más cercana al elemento clicado
-    const checkbox = td.querySelector('input[type="checkbox"]');  // Encuentra el checkbox dentro de la celda
 
-    // Comprueba si el clic fue en el texto del indicador o en el checkbox
-    const isTextClicked = event.target.matches('label.form-check-label') || event.target.matches('label.form-check-label *');
-
-    // Cambia el estado del checkbox si se hizo clic en el texto
-    if (isTextClicked) {
-      checkbox.checked = !checkbox.checked;
-    }
-
-    // Si se hizo clic en el checkbox, detiene la propagación del evento para evitar que el clic en el checkbox cambie nuevamente su estado
-    event.stopPropagation();
-  }
-
-
-  new ClipboardJS('.btn-primary');
+new ClipboardJS('.btn-primary');
 
 // Muestra el modal si estamos en un movil
-  document.addEventListener("DOMContentLoaded", function() {
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    if (isMobile) {
-      const mobileWarningModal = new bootstrap.Modal(document.getElementById("mobileWarningModal"));
-      mobileWarningModal.show();
-    }
+document.addEventListener("DOMContentLoaded", function() {
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  if (isMobile) {
+    const mobileWarningModal = new bootstrap.Modal(document.getElementById("mobileWarningModal"));
+    mobileWarningModal.show();
+  }
+});
+
+$(document).ready(function() {
+  $('#download-button').click(function() {
+    html2canvas($('#resumen')[0], {
+      scale: 1.5,
+      width: $('.resume-table').width(),
+      height: $('.resume-table').height()
+    }).then(function(canvas) {
+      var link = document.createElement('a');
+      link.href = canvas.toDataURL("image/png");
+      link.download = 'tabla_resume.png';
+      link.click();
+    });
   });
 
+  // Refresca la tabla cuando se teclea en buscar
+  document.getElementById('search').addEventListener('keyup', function() {
+    console.log('Search keyup event');
+    fillTable(data, tableBody);
+  });
 
-  $(document).ready(function() {
-    $('#download-button').click(function() {
-      html2canvas($('#resumen')[0], {
-        scale: 1.5,
-        width: $('.resume-table').width(),
-        height: $('.resume-table').height()
-      }).then(function(canvas) {
-        var link = document.createElement('a');
-        link.href = canvas.toDataURL("image/png");
-        link.download = 'tabla_resume.png';
-        link.click();
-      });
-    });
-
-
-    document.getElementById('search').addEventListener('keyup', function() {
-      console.log('Search keyup event');
+  // Refresca la tabla cuando se cambian los checkboxes de filtro
+  var checkboxes = document.querySelectorAll('.check-filter');
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener('change', function() {
+      console.log('Checkbox filter change event');
       fillTable(data, tableBody);
     });
+  }
 
-    var checkboxes = document.querySelectorAll('.form-check-input');
-    for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].addEventListener('change', function() {
-        console.log('Checkbox change event');
-        fillTable(data, tableBody);
-      });
-    }
-
-
-  });
-
+});
 
