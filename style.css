@@ -102,6 +102,11 @@ td {
   z-index: 1;
 }
 
+.label-check-filter {
+  padding-left: 0em;
+  padding-right: 1em;
+}
+
 dl, ol, ul {
   margin-left: -20px;
 }
