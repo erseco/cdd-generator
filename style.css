@@ -136,6 +136,15 @@ dl, ol, ul {
   margin-right: 20px;
 }
 
+.btn-reset {
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  right: 100px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
 .bottom-bar {
   position: fixed;
   bottom: 0;
