@@ -226,7 +226,7 @@ function loadData(url, callback) {
 }
 
 // Cargando datos del yml:
-loadData('mrcdd.yml?v=1704364859', fillTable);
+loadData('mrcdd.yml?v=1704365416', fillTable);
 
 // Mostrar el modal
 const generarBtn = document.querySelector('.btn-generar');
