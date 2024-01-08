@@ -30,11 +30,11 @@ function createCheckbox(area, competencia, etapa, nivel, indicador) {
   checkbox.setAttribute('data-indicador-titulo', indicador.titulo);
   checkbox.setAttribute(
     'name',
-    `indicador-${indicador.indicador}-comp-${competencia.competencia}`
+    `${competencia.competencia}.${nivel.nivel}.${indicador.indicador}`
   );
   checkbox.setAttribute(
     'id',
-    `indicador-${indicador.indicador}-comp-${competencia.competencia}`
+    `${competencia.competencia}.${nivel.nivel}.${indicador.indicador}`
   );
 
   return checkbox;
@@ -162,8 +162,10 @@ let data;
 let tableBody;
 
 function fillTable(data) {
-  // Limpiar las filas existentes, excepto la primera
-  $('#mrcdd-table tr').not(':first').remove();
+  // Limpiar las filas existentes, excepto la primera (thead)
+  const rows = document.querySelectorAll('#mrcdd-table tbody tr');
+  rows.forEach(row => row.remove());
+
 
   // Obtener el cuerpo de la tabla
   const tableBody = document.querySelector('#table-body');
@@ -202,6 +204,35 @@ function fillTable(data) {
       }
     }
   }
+
+
+  // Función para obtener el valor de un parámetro específico de la URL
+  function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+
+  // Obtener el valor del parámetro 's'
+  var paramValue = getParameterByName('s');
+
+  // Verificar si el parámetro existe
+  if (paramValue) {
+      // Separar los valores
+      var valuesToCheck = paramValue.split('|');
+
+      // Marcar los checkboxes correspondientes
+      valuesToCheck.forEach(function(value) {
+          var checkbox = document.querySelector('input[type="checkbox"][name="' + value + '"]');
+          if (checkbox) {
+              checkbox.checked = true;
+          }
+      });
+  }
+
 }
 
 function loadData(url, callback) {
@@ -226,12 +257,17 @@ function loadData(url, callback) {
 }
 
 // Cargando datos del yml:
-loadData('mrcdd.yml?v=1704365416', fillTable);
+loadData('mrcdd.yml?v=1704750231', fillTable);
 
 // Mostrar el modal
 const generarBtn = document.querySelector('.btn-generar');
 generarBtn.addEventListener('click', () => {
   generarTexto();
+
+  // Muestra el modal
+  const generarModal = new bootstrap.Modal(document.getElementById('generarModal'));
+  generarModal.show();
+
 });
 
 
@@ -244,10 +280,38 @@ resetBtn.addEventListener('click', () => {
       checkbox.checked = false;
   });
 
+  // Eliminar los parámetros GET de la URL
+  const url = window.location.protocol + "//" + window.location.host + window.location.pathname;
+  window.history.pushState({path: url}, '', url);
+
 });
 
 
+const shareBtn = document.querySelector('.btn-share');
+shareBtn.addEventListener('click', () => {
 
+
+  // Recopilar los valores de los checkboxes marcados
+  var checkedValues = [];
+  document.querySelectorAll('.indicator-checkbox').forEach(function(checkbox) {
+      if (checkbox.checked) {
+          checkedValues.push(checkbox.name);
+      }
+  });
+
+  // Construir la URL
+  var url = window.location.href.split('?')[0] + '?s=' + checkedValues.join('|');
+
+  // Copiar la URL al portapapeles
+  // Actualizar el atributo data-clipboard-text del botón con la URL
+  document.getElementById('copyUrlButton').setAttribute('data-clipboard-text', url);
+
+  // Inicializar y mostrar el toast
+  const myToastEl = document.getElementById('toast');
+  const myToast = bootstrap.Toast.getOrCreateInstance(myToastEl);
+  myToast.show();
+
+});
 
 
 // Obtener los checkboxes marcados y generar el texto para el modal
@@ -300,10 +364,10 @@ function generarTexto() {
       indicadorData,
     });
   });
-  console.log(selectedData);
 
   // Limpiamos las filas de la tabla resumen (la vamos a ir rellenando ahora)
-  $('td.cell-r0').text('');
+  const cells = document.querySelectorAll('td.cell-r0');
+  cells.forEach(cell => cell.textContent = '');
 
   // Utilizar el objeto creado para generar el texto deseado
   let texto = '';
@@ -321,7 +385,10 @@ function generarTexto() {
         texto += `<span style="font-weight:bold;">${nivel[0].nivel} de la competencia ${nivel[0].competencia}.</span> ${competencia} porque contribuye a trabajar `;
 
         // Asignamos el valor en la tabla resumen
-        $(`.a${nivel[0].area}c${nivel[0].competencia[2]}`).text(vNivel);
+        const cell = document.querySelector(`.a${nivel[0].area}c${nivel[0].competencia[2]}`);
+        if (cell) {
+            cell.textContent = vNivel;
+        }
 
         if (nivel.length == 1) {
           texto += `<span style="font-weight:bold;"> con el indicador ${nivel[0].indicador}.</span> ${nivel[0].indicadorData}.`;
@@ -351,12 +418,15 @@ function generarTexto() {
   const modalBody = document.querySelector('.resume-text');
   modalBody.innerHTML = texto;
 
-  // concatenamos la tabla resumen (un clon)
-  const resumenTable = $('#resumen').clone();
-  $('.resume-table').html(resumenTable);
+  // Clonar y actualizar la tabla resumen
+  const resumenTable = document.getElementById('resumen').cloneNode(true);
+  document.querySelector('.resume-table').innerHTML = '';
+  document.querySelector('.resume-table').appendChild(resumenTable);
 }
 
 new ClipboardJS('.btn-primary');
+// Inicializar Clipboard.js en el botón
+new ClipboardJS('#copyUrlButton');
 
 // Muestra el modal si estamos en un movil
 document.addEventListener('DOMContentLoaded', function () {
@@ -369,32 +439,35 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-$(document).ready(function () {
-  $('#download-button').click(function () {
-    html2canvas($('#resumen')[0], {
+document.addEventListener('DOMContentLoaded', function () {
+  // Descargar botón
+  const downloadButton = document.getElementById('download-button');
+  downloadButton.addEventListener('click', function () {
+    html2canvas(document.getElementById('resumen'), {
       scale: 1.5,
-      width: $('.resume-table').width(),
-      height: $('.resume-table').height(),
+      width: document.querySelector('.resume-table').offsetWidth,
+      height: document.querySelector('.resume-table').offsetHeight,
     }).then(function (canvas) {
       const link = document.createElement('a');
       link.href = canvas.toDataURL('image/png');
       link.download = 'tabla_resume.png';
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
     });
   });
 
-  // Refresca la tabla cuando se teclea en buscar
-  document.getElementById('search').addEventListener('keyup', function () {
-    console.log('Search keyup event');
+  // Evento de búsqueda de texto
+  const searchBox = document.getElementById('search');
+  searchBox.addEventListener('keyup', function () {
     fillTable(data, tableBody);
   });
 
-  // Refresca la tabla cuando se cambian los checkboxes de filtro
+  // Cambio en los checkboxes de filtro
   const checkboxes = document.querySelectorAll('.check-filter');
-  for (let i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].addEventListener('change', function () {
-      console.log('Checkbox filter change event');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
       fillTable(data, tableBody);
     });
-  }
+  });
 });
