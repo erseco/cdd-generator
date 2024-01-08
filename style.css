@@ -77,6 +77,10 @@ table {
   border-collapse: collapse;
 }
 
+.table {
+  --bs-table-bg: transparent; /* Establece el fondo de la tabla como transparente */
+}
+
 thead {
   position: sticky;
   top: 0;
@@ -86,16 +90,16 @@ z-index: 2;
 }
 
 th {
-  border: 1px solid #dee2e6;
+  border: 1px solid gray;
   padding: 0.75rem;
   vertical-align: middle;
   position: relative;
 }
 
 td {
-  border: 1px solid #dee2e6;
+  border: 1px solid gray;
   padding: 0.75rem;
-  vertical-align: middle;
+/*  vertical-align: middle;*/
   position: relative;
   top: 0;
   left: 0;
@@ -107,9 +111,14 @@ td {
   padding-right: 1em;
 }
 
-dl, ol, ul {
+/*dl, ol, ul {
   margin-left: -20px;
 }
+*/
+.indicator-checkbox {
+  margin-left: -10px; 
+}
+
 
 /*.table-bordered th,
 .table-bordered td {
@@ -127,12 +136,18 @@ dl, ol, ul {
   text-align: center;
 }
 
-.btn-generar {
+#toast {
+/*    left: 50%;
+    transform: translateX(-50%);*/
+    z-index: 1050; /* Asegúrate de que está por encima de otros elementos */
+}
+
+/*.btn-generar {
   z-index: 1;
   position: fixed;
   bottom: 0;
   right: 0;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   margin-right: 20px;
 }
 
@@ -141,9 +156,19 @@ dl, ol, ul {
   position: fixed;
   bottom: 0;
   right: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   margin-right: 20px;
 }
+
+.btn-share {
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  right: 180px;
+  margin-bottom: 8px;
+  margin-right: 20px;
+  font-color: white;
+}*/
 
 .bottom-bar {
   position: fixed;
