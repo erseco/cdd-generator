@@ -217,7 +217,7 @@ function fillTable(data) {
   }
 
   // Obtener el valor del parámetro 's'
-  var paramValue = getParameterByName('s');
+  var paramValue = getParameterByName('c');
 
   // Verificar si el parámetro existe
   if (paramValue) {
@@ -300,7 +300,7 @@ shareBtn.addEventListener('click', () => {
   });
 
   // Construir la URL
-  var url = window.location.href.split('?')[0] + '?s=' + checkedValues.join('|');
+  var url = window.location.href.split('?')[0] + '?c=' + checkedValues.join('|');
 
   // Copiar la URL al portapapeles
   // Actualizar el atributo data-clipboard-text del botón con la URL
