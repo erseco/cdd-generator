@@ -217,7 +217,7 @@ function fillTable(data) {
   }
 
   // Obtener el valor del parámetro 's'
-  var paramValue = getParameterByName('s');
+  var paramValue = getParameterByName('c');
 
   // Verificar si el parámetro existe
   if (paramValue) {
@@ -257,7 +257,7 @@ function loadData(url, callback) {
 }
 
 // Cargando datos del yml:
-loadData('mrcdd.yml?v=1704750231', fillTable);
+loadData('mrcdd.yml?v=1712829317', fillTable);
 
 // Mostrar el modal
 const generarBtn = document.querySelector('.btn-generar');
@@ -300,7 +300,7 @@ shareBtn.addEventListener('click', () => {
   });
 
   // Construir la URL
-  var url = window.location.href.split('?')[0] + '?s=' + checkedValues.join('|');
+  var url = window.location.href.split('?')[0] + '?c=' + checkedValues.join('|');
 
   // Copiar la URL al portapapeles
   // Actualizar el atributo data-clipboard-text del botón con la URL
